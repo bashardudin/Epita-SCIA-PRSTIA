@@ -1,0 +1,244 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[french]{babel}
+\usepackage{fancyhdr}
+\usepackage[margin=.8in]{geometry}
+
+\usepackage{Style/TeXingStyle}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\fancyhead[L]{EPITA\_ING2\_2019\_S8}
+\fancyhead[R]{Majeure SCIA}
+\fancyhead[C]{PRST}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{2018}
+\fancyfoot[R]{\textbf{Chargé de cours :} \textsc{Bashar~DUDIN}}
+
+\pretitle{\vspace{-2.5\baselineskip} \begin{center}}
+\title{%
+  { \huge Feuille d'exercices}%
+}
+\posttitle{
+\end{center}
+\rule{\textwidth}{1.5pt}
+\vspace{-3\baselineskip}
+}
+\author{}
+\date{}
+
+\pdfinfo{
+   /Author (Bashar Dudin)
+   /Title  (Exercices PRST - 2018)
+   /Subject (Probabilités)
+}
+
+\begin{document}
+
+\maketitle\thispagestyle{fancy}
+
+\section{S'habituer au formalisme}
+\label{sec:formalisme}
+
+
+\subsection{Lois à densités -- manipulation}
+
+On a aborde quelques exercices simples de manipulation des lois à
+densités. Ces lois nécessitent une certaine aisance dans l'utilisation
+des intégrales généralisées.
+
+\paragraph{Loi exponentielle et temps d'arrêt.}
+
+La date de connexion d'un client à votre après $00:00$ est une
+variable aléatoire définie sur un espace probabilisé
+$(\Omega, \mc{A}, \mbb{P})$, de loi exponentielle de paramètre
+$\lambda$.
+\begin{question}
+  \begin{enumerate}
+  \item
+    Rappeler et calculer les moments d'ordre $1$ et $2$ de d'une loi
+    exponentielle de paramètre $\lambda$. En déduire la variance d'une
+    telle loi.
+  \item
+    Calculer la probabilité $\mbb{P}(T > 1/\lambda)$.
+  \item
+    On fixe $\epsilon > 0$. On considère pour $k \in \N$ les plages
+    horaires $I_k = [k\epsilon, (k+1)\epsilon[$. Calculer la
+    probabilité $\mbb{P}(T \in I_k)$.
+  \item
+    Soit $X$ la variable aléatoire à valeurs dans $\N$ définie pour
+    tout $\omega in \Omega$ par
+    \[
+    X(\omega) = k \Leftrightarrow T(\omega) \in I_k.
+    \]
+    Quelle est la loi de $X$?
+  \item
+    Calculer pour tout $t > 0$ et tout $h > 0$, la probabilité
+    $\mbb{P}(t < T)$ ainsi que la probabilité conditionnelle
+    $\mbb{P}(T > t+h \mid T > t)$. Qu'est-ce que cela signifie?
+  \end{enumerate}
+\end{question}
+
+\paragraph{Somme de densités.} On considère deux variables aléatoires
+$X$ définies sur $\Omega$, on construit à partir de celles-ci la
+variable aléatoire sur $\Omega \times \{0, 1\}$ définie par:
+\[
+X(\omega, 0) = X_1(\omega) \quad\textrm{et}\quad X(\omega, 1) = X_2(\omega)
+\]
+\begin{question}
+  Exprimer la loi de probabilités de $X$ en fonction de $X_1$ et
+  $X_2$. Si $X_1$ et $X_2$ sont des lois à densité montrer qu'il en va
+  de même de $X$ et calculer sa densité.
+\end{question}
+
+\paragraph{Transfert.} On considère la variable aléatoire $X$ à valeurs
+dans $]0, 1[$ et dont la densité est donnée pour $x \in \R$ par
+\[
+f_X(x) = \frac{1}{\ln(2)}\times \frac{1}{1+x}\chi_{]0, 1[}(x).
+\]
+\begin{question}
+  \begin{enumerate}
+  \item
+    Déterminer la loi de $Y = 1/X$.
+  \item
+    On note $E(Y)$ la partie entière de $Y$, déterminer la loi de
+    $Z = Y - E(Y)$.
+  \end{enumerate}
+\end{question}
+
+\subsection{Lois à densités -- conditionnement}
+
+
+
+\section{De la probabilité en ML}
+\label{sec:ML}
+
+\noindent La ML construit des modèles dont l'objectif est un parmi:
+\begin{itemize}
+\item[\textbullet] prédire une caractéristique d'intérêt d'un individu à partir de
+  caractéristiques connues de celui-ci
+\item[\textbullet] identifier des \emph{patterns} dans un ensemble de données à
+  l'étude, sans que cela soit conduit par un objectif particulier.
+\end{itemize}
+Les situations qu'on décrit par la suite apparaissent dans le premier
+contexte. Dans ce cadre on suppose qu'on a des données qui contiennent
+les caractéristiques d'un nombre d'individus ainsi que \emph{la}
+caractéristique qu'on souhaite prédire.
+
+\subsection{\emph{Score} d'un classificateur}
+\label{sec:classificateurAlea}
+
+On chercher dans cette section à quantifier la \textit{qualité} de
+modèles de ML qu'on appelle les classificateur. Un classificateur est
+un modèle apparaît dans la situation où la caractéristique qu'on
+cherche à prédire est discrète ; par exemple des types de plantes, des
+couleurs de cheveux, des appréciations de goûts etc. C'est une
+fonction qui étant donné un certaint nombre de caractéristique en
+entrée renvoie une valeurs discrète, souvent codées entre $0$ et le
+nombre de classes à prédire moins un.
+
+Dans la formalisation qu'on propose ici on considère que les
+caractéristique en entrée constitue un espace d'états $\Omega$. On
+considère de plus que celui-ci vient avec une fonction $\lambda$ qu'on
+désigne par \textit{label} et qui nous indique la caractéristique
+qu'on cherche à prédire. On a supposé que le dataset en entrée
+contient cette information. Dans ce contexte un classificateur est une
+variable aléatoire $X : \Omega \to F$ où $F$ est l'espace des labels
+qu'on cherche à attribuer à nos entrées. L'espace $\Omega$ est supposé
+fini probabilisé muni d'une probabilité $\mbb{P}$. C'est cette
+probabilité qui fait office de \textit{proportion}.
+
+On suppose que $X$ est donnée et on souhaite étudier trois quantités
+qui sont liées à l'évaluation de la qualité d'un classificateur.
+
+\paragraph{Cas binaire.} On se limite en un premier temps au cas d'un
+classificateur binaire, c'est-à-dire que $F = \{0, 1\}$.
+\begin{question}
+  On appelle \emph{précision totale} d'un classificateur binaire $X$
+  la proportion des individus bien classés, c'est-à-dire ceux où les
+  réponses de $X$ et $\lambda$ concident.
+  \begin{enumerate}
+  \item Exprimer la précision totale de $X$ en s'aidant de la variable
+    aléatoire $X - \lambda$.
+  \item Déterminer la loi de $X-\lambda$ et interpréter ses deux
+    autres valeurs.
+  \end{enumerate}
+\end{question}
+Dans le cas d'un classificateur binaire deux autres quantités
+apparaissent relativement naturellement à l'évaluation :
+\begin{itemize}
+\item la \emph{précision}: proportion des vrais positifs par
+  rapport à l'ensemble des bonnes classifications.
+\item le \emph{rappel}: proportion des vrais positifs par rapport
+  à l'ensemble des positifs (donnés par $\lambda$).
+\end{itemize}
+\begin{question}
+  \begin{enumerate}
+  \item Exprmier précision et rappel de $X$.
+  \item Étudier l'interconnexion entre précision et rappel ;
+    qu'arrive-t-il à l'une si l'autre augmente?
+  \end{enumerate}
+\end{question}
+Dans les problématiques de classification on est toujours attentifs au
+fait d'être confrontés à des modèles dont la dépendance au label
+$\lambda$ est très faible. C'est pour cette raison qu'on va souvent
+chercher à évaluer le \emph{score} d'un classificateur $X$ tels que
+$X$ et $\lambda$ définissent des variables aléatoires indépendantes.
+\begin{question}
+  \begin{enumerate}
+  \item Simplifier les expressions de la précision totale, précision
+    et rappel dans le cas où $X$ et $\lambda$ sont indépendants.
+  \item On suppose que $X$ et $\lambda$ sont indépendants et suivent
+    des loi de Bernoulli respectivement de paramètres $p$ et
+    $q$. Exprimer les différents scores de $X$ dans ce cas.
+  \item Quels resultats numériques obtenez-vous pour chacun des scores
+    quand $p=q=0.9$? Qu'en déduisez-vous?
+  \end{enumerate}
+\end{question}
+
+\paragraph{Cas général.} On revient brièvement vers le cas général. On
+suppose désormais que $F$ est l'ensemble discret $\{0, \ldots, k-1\}$.
+\begin{question}
+  \begin{enumerate}
+  \item Exprimer la précision totale de $X$.
+  \item Étudiez la loi de $X-\lambda$. Est-elle aussi facilement
+    interprétable que dans le cas binaire?
+  \item Chercher une variable aléatoire plus adaptée à l'étude des
+    problématiques de classifications qui ne sont pas binaires.
+  \end{enumerate}
+\end{question}
+
+
+% \subsection{Classificateur Bayesien}
+% \label{sec:Bayesien}
+
+% \subsection{\emph{Trade-off} biais variance}
+% \label{sec:biaisVariance}
+
+% \pretitle{\vspace{-2\baselineskip} \begin{center}}
+% \title{%
+%   { \huge Solutions des exercices}%
+% }
+% \posttitle{
+% \end{center}
+%   \vspace{.5\baselineskip}
+%   \rule{\textwidth}{1.5pt}
+%   \vspace{-5\baselineskip}
+% }
+
+% \maketitle\thispagestyle{fancy}
+
+% \noindent Vous trouverez dans la suite solutions et indications d'une
+% partie des exercices de la feuille. Ceci étant majoritairement
+% accessibles il vous est suffisant de comparer votre travail au
+% résultats que vous retrouverez dans la suite.
+
+% \printsolutions
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
