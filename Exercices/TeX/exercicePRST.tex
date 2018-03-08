@@ -42,11 +42,27 @@
 \label{sec:formalisme}
 
 
-\subsection{Lois à densités -- manipulation}
+\subsection{Lois à densités -- Manipulation}
 
-On a aborde quelques exercices simples de manipulation des lois à
+\noindent On a aborde quelques exercices simples de manipulation des lois à
 densités. Ces lois nécessitent une certaine aisance dans l'utilisation
 des intégrales généralisées.
+
+\paragraph{Deux petits exemples.}
+
+\begin{question}
+  On considère une variable aléatoire $X$ suivant la loi uniforme sur
+  $[0, 1]$. Quelle est la loi de la variable aléaoitre $Y = X(X-1)$?
+\end{question}
+
+\begin{question}
+  On considère une expérience aléaatoire où l'on choisit au hasard un
+  point du cercle de centre l'origine et de rayon l'unité. On note $X$
+  et $Y$ les variables aléatoires réelles qui correspondent au choix
+  des coordonnées d'un tel point. Décrire les lois de $X$ et $Y$.
+
+  Pourriez-vous généraliser au cas d'un point de la sphère?
+\end{question}
 
 \paragraph{Loi exponentielle et temps d'arrêt.}
 
@@ -102,14 +118,72 @@ f_X(x) = \frac{1}{\ln(2)}\times \frac{1}{1+x}\chi_{]0, 1[}(x).
   \item
     Déterminer la loi de $Y = 1/X$.
   \item
-    On note $E(Y)$ la partie entière de $Y$, déterminer la loi de
-    $Z = Y - E(Y)$.
+    On note $\mbb{E}(Y)$ la partie entière de $Y$, déterminer la loi de
+    $Z = Y - \mbb{E}(Y)$.
   \end{enumerate}
 \end{question}
 
-\subsection{Lois à densités -- conditionnement}
+\subsection{Lois à densités -- Moments}
 
+\paragraph{Loi de Pascal.}
+On considère la variable aléatoire $X$ suivant la loi de densité
+$f_X(x) =  \frac{1}{2}e^{-|x|}$.
+\begin{question}
+  Calculer l'espérence de la variable aléatoire
+  $Y = \chi_{[1, +\infty[}X + \chi_{[-\infty, 1]}$.
+\end{question}
 
+\paragraph{Loi de Rayleigh}
+On considère la variable aléatoire $X$ suivant la loi de densité
+$f_X(x) = xe^{-x^2/2}\chi_{[0, +\infty[}$.
+\begin{question}
+  \begin{enumerate}
+  \item Déterminer l'espérence $\mbb{E}(X)$ de $X$. Calculer
+    $\mbb{P}\big(X > \mbb{E}(X)\big)$.
+  \item Calculer $\mbb{E}(X^2)$. En déduire $\mbb{V}(X)$.
+  \item Calculer $\mbb{R}\big(|X-\mbb{E}(X)| > 1\big)$. Comparer le
+    résultat avec l'inégalité de Tchebychev.
+  \end{enumerate}
+\end{question}
+
+\subsection{Lois à densités -- Conditionnement}
+
+\paragraph{Manipulation des lois conjointes et marginales.} On
+travaille trois exercices dont l'objectif est de vous habituer à la
+manipulation des lois conditionnelles et conjointes à denstiés.
+
+\begin{question}
+  Soit $(X, Y)$ un couple de variables aléatoires à dans
+  $[0, +\infty[$, dont la loi conjointe a pour densité
+  \[ f_{X, Y}(x, y) = \frac{1}{2\sqrt{x}}e^{-y}\chi_D(x, y)
+  \]
+  où $D$ désigne le lieu de $\R^2$
+  $\{(x, y) \mid x > 0, y > \sqrt{x}\}$.
+  \begin{enumerate}
+  \item Déterminer les lois de $X$ et $Y$.
+  \item Les variables $X$ et $Y$ sont elles indépendantes?
+  \end{enumerate}
+\end{question}
+
+\begin{question}
+  Soient $X$ et $Y$ deux variables aléatoires indépendantes de même
+  densité $x \mapsto \frac{1}{\sqrt{2\pi}}e^{-x^2/2}$.
+  \begin{enumerate}
+  \item Déterminer la loi de la variable aléatoire $R = \sqrt{X^2+Y^2}$.
+  \item Déterminer la valeur moyenne de $R$.
+  \item Les variables aléatoires $X$ et $R$ sont-elles indépendantes?
+  \end{enumerate}
+\end{question}
+
+\begin{question}
+  Soit $(X, Y)$ une variable aléatoire à dans $]0, 1[\times ]0, 1[$,
+  de densité $f_{(X, Y)}(x, y) = 3\chi_D$ où $D$ est le lieu de $\R^2$
+  \[
+  D = \big\{(x, y) \mid 0 < x^2 < y < \sqrt{x} < 1\big\}.
+  \]
+  Déterminer les lois conditionnelles et espérences condtionnelles de
+  $Y$ par rapport à $X$ et de $X$ par rapport à $Y$.
+\end{question}
 
 \section{De la probabilité en ML}
 \label{sec:ML}
@@ -210,11 +284,12 @@ suppose désormais que $F$ est l'ensemble discret $\{0, \ldots, k-1\}$.
 \end{question}
 
 
-% \subsection{Classificateur Bayesien}
-% \label{sec:Bayesien}
+\subsection{Classificateur Bayesien}
+\label{sec:Bayesien}
 
-% \subsection{\emph{Trade-off} biais variance}
-% \label{sec:biaisVariance}
+\subsection{\emph{Trade-off} biais variance}
+\label{sec:biaisVariance}
+
 
 % \pretitle{\vspace{-2\baselineskip} \begin{center}}
 % \title{%
