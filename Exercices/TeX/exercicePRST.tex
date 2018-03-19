@@ -55,14 +55,113 @@ des intégrales généralisées.
   $[0, 1]$. Quelle est la loi de la variable aléaoitre $Y = X(X-1)$?
 \end{question}
 
+\begin{solution}
+  L'expressions $x(x-1)$ décrit une parabole dont le sommet est
+  atteint en $1/2$ et y prend la valeur $1/4$. Sur $[0, 1]$ cette
+  parabole prend donc toutes les valeurs dans $[0, 1/4]$. Comme $X$
+  prend ses valeurs dans $[0, 1]$, la V.A. Y prend ses valeurs dans
+  $[0, 1/4]$. On va décrire la fonction de répartition de $Y$. Soit
+  $t \in [0, 1/4]$.
+  \[
+  Y \leq t \Longleftrightarrow X^2 - X - t \leq 0.
+  \]
+  Pour décrire le lieu $Y \leq t$ on étudie donc le signe du trinôme
+  du seconde degré $X^2 - X - t$ en $X$. Ce trinôme est négatif entre
+  les racines. Une étude du discriminanet permet de voie que ces
+  racines sont
+  \[
+  \frac{1 - \sqrt{1-4t}}{2} \quad \textrm{et} \quad \frac{1 +
+    \sqrt{1-4t}}{2}.
+  \]
+  Ainsi
+  \[
+  Y \leq t \Longleftrightarrow \frac{1 - \sqrt{1-4t}}{2} \leq X \leq
+  \frac{1 + \sqrt{1-4t}}{2}.
+  \]
+  Donc
+  \[
+  \mbb{P}(Y \leq t) = \mbb{P}\left(\frac{1 - \sqrt{1-4t}}{2} \leq X \leq \frac{1 +
+    \sqrt{1-4t}}{2}\right) = 1 - \sqrt{1-4t}.
+  \]
+  La densité $f_Y$ de $Y$ est ainsi donnée par
+  \[
+  f_y(x) = \frac{2}{1 - 4x}\bOne_{[0, 1/4]}(x).
+  \]
+  Pour le voir il suffit de voir le fait que la densité est la dérivée
+  de la fonction de répartition là où celle-ci est dérivable. Comme la
+  valeur n'a pas d'importance dans le seul point où elle ne l'est pas
+  (en $0$) on obtient ce qu'on cherche.
+\end{solution}
+
 \begin{question}
-  On considère une expérience aléaatoire où l'on choisit au hasard un
+  On considère une expérience aléatoire où l'on choisit au hasard un
   point du cercle de centre l'origine et de rayon l'unité. On note $X$
   et $Y$ les variables aléatoires réelles qui correspondent au choix
   des coordonnées d'un tel point. Décrire les lois de $X$ et $Y$.
 
-  Pourriez-vous généraliser au cas d'un point de la sphère?
+  \noindent Pourriez-vous généraliser au cas d'un point de la sphère?
 \end{question}
+
+\begin{solution}
+  On repère le point du cercle unité par l'angle que forme le rayon
+  lui correspondant avec l'axe des abscisses. Autrement dit par ses
+  coordonnées polaires. L'angle $\theta$ qui repère un point du cercle
+  unité varie dans $[0, 2\pi[$. On peut donc décrire une probabilité
+  sur le cercle unité par l'espace d'états $\Omega = [0, 2\pi[$, muni
+  de la tribu des boréliens, et agrémenté de la probab $(1/2\pi)\ell$
+  où $\ell$ est déterminée sur les intervalles de $\Omega$ par la
+  longueur de ceux-ci.
+
+  \noindent La variable aléatoire $X$ est décrite par ce cadre par la
+  fonction $\theta \mapsto \cos(\theta)$ et qui prend ses valeurs dans
+  $[-1, 1]$. La fonction de répartition de $X$ est décrite pour tout
+  $t \in [-1, 1]$ par
+  \[
+  \mbb{P}(X \leq t) = \ell\left(\big[\theta \mid \cos(\theta) \leq
+    t\big]\right).
+  \]
+  On pourrait s'arrêter à ce stade, car vous avez jamais vu la
+  fonction $\arccos$. On va, cela dit, aller un peu plus loin. La
+  fonction $\arccos$ est la réciproque de la fonction $\cos$ quand
+  cette dernière est restreinte à l'espace de départ $[0, \pi]$. Sur
+  cet interval $\arccos$ est décroissante. On a donc, pour tout
+  $t \in [-1, 1]$,
+  \[
+  \theta \in [0, \pi] \, \textrm{et} \, \cos(\theta) \leq t
+  \Longleftrightarrow \arccos(t) \leq \theta \leq \pi.
+  \]
+  La symétrie axiale du graphe de $\cos$ par rapport à l'axe
+  $x = \pi$\footnote{Il faut un peu de travail et de dessin pour le
+    voir. Je compte sur vous. (Oui, j'ai la flemme, mais venez me
+    poser des questions).} permet de voir que
+  \[
+  \theta \in [0, 2\pi] \, \textrm{et} \, \cos(\theta) \leq t
+  \Longleftrightarrow \arccos(t) \leq \theta \leq 2\pi - \arccos(t).
+  \]
+  D'où, pour tout $t \in [-1, 1]$,
+  \begin{align*}
+    \mbb{P}(X \leq t) & = \mbb{P}\left(\arccos(t) \leq \theta \leq 2\pi - \arccos(t)\right) \\
+                      &  = 1 - \frac{1}{\pi}\arccos(t).
+  \end{align*}
+  Hors de $[-1, 1]$ la fonction de répartition de $X$ est, ou bien
+  nulle quand $t < -1$ ou égale à $1$ sinon. Cela suffit pour
+  déterminer la loi de $X$ ainsi que celle de $Y$ (par symétrie, c'est
+  la même que la loi de $X$).
+
+  \noindent On peut ajouter à l'étude le calcul de la densité de la
+  fonction de répartition $F_X$. C'est une fonction dérivable sauf
+  éventuellement en $-1$ et $1$. En dehors de ces points on obtient
+  pour fonction de densité
+  \[
+  f_X(x) = \frac{1}{\pi\sqrt{1-x^2}}\bOne_{[-1, 1]}(x).
+  \]
+  qu'on prolonge par $0$ en $-1$ et $1$. Cette relation vient du fait que
+  \[
+  \arccos'(x) = \frac{1}{\sqrt{1-x^2}}\footnote{Si vous voulez savoir
+    pourquoi posez-moi la question.}.
+  \]
+\end{solution}
+
 
 \paragraph{Loi exponentielle et temps d'arrêt.}
 
@@ -111,7 +210,7 @@ X(\omega, 0) = X_1(\omega) \quad\textrm{et}\quad X(\omega, 1) = X_2(\omega)
 \paragraph{Transfert.} On considère la variable aléatoire $X$ à valeurs
 dans $]0, 1[$ et dont la densité est donnée pour $x \in \R$ par
 \[
-f_X(x) = \frac{1}{\ln(2)}\times \frac{1}{1+x}\chi_{]0, 1[}(x).
+f_X(x) = \frac{1}{\ln(2)}\times \frac{1}{1+x}\bOne_{]0, 1[}(x).
 \]
 \begin{question}
   \begin{enumerate}
@@ -130,12 +229,28 @@ On considère la variable aléatoire $X$ suivant la loi de densité
 $f_X(x) =  \frac{1}{2}e^{-|x|}$.
 \begin{question}
   Calculer l'espérence de la variable aléatoire
-  $Y = \chi_{[1, +\infty[}X + \chi_{[-\infty, 1]}$.
+  $Y = \bOne_{[1, +\infty[}X + \bOne_{[-\infty, 1]}$.
 \end{question}
+
+\begin{solution}
+  D'après le théorème de transfert on a
+  \[
+  \mbb{E}(Y) = \int_\R \Big(x\bOne_{[1, +\infty[}(x) + \bOne_{[-\infty, 1]}(x)\Big)\frac{1}{2}e^{-|x|}\dd{x}.
+  \]
+  D'où
+  \[
+  \mbb{E}(Y) = \frac{1}{2}\int_1^{+\infty}xe^{-x}\dd{x} + \frac{1}{2} \int_{-\infty}^1 e^{x}\dd{x}.
+  \]
+  Une intégration par partie pour la première intégrale et un calcul
+  direct pour la seconde donne
+  \[
+   \mbb{E}(Y) = 1 - \frac{1}{e}.
+  \]
+\end{solution}
 
 \paragraph{Loi de Rayleigh}
 On considère la variable aléatoire $X$ suivant la loi de densité
-$f_X(x) = xe^{-x^2/2}\chi_{[0, +\infty[}$.
+$f_X(x) = xe^{-x^2/2}\bOne_{[0, +\infty[}$.
 \begin{question}
   \begin{enumerate}
   \item Déterminer l'espérence $\mbb{E}(X)$ de $X$. Calculer
@@ -146,6 +261,47 @@ $f_X(x) = xe^{-x^2/2}\chi_{[0, +\infty[}$.
   \end{enumerate}
 \end{question}
 
+\begin{solution}
+  L'espérence de la V.A. $X$ est donnée par l'expression
+  \[
+  \mbb{E}(X) = \int_0^{+\infty} x^2e^{-x^2/2}\dd{x}.
+  \]
+  En décomposant l'intégrande en $u = x$ et $v' = xe^{-x^2/2}$ une
+  intégration par parties donne
+  \[
+  \mbb{E}(X) = \sqrt{\frac{\pi}{2}}
+  \]
+  par comparaison à l'espérence d'une variable aléatoire de loi
+  gaussienne ayant une espérence nulle et une variance de $1$.
+
+  \noindent En s'aidant d'une intégration par parties on a
+  \[
+  \mbb{P}\big(X \geq \mbb{E}(X)\big) =
+  \int_{\sqrt{\pi/2}}^{+\infty}xe^{-x^2/2}\dd{x} = e^{-\pi/4}.
+  \]
+  Une intégration par parties en deux temps qui prolonge le
+  raisonnemenet à la première question permet d'avoir
+  \[
+  \mbb{E}(X^2) = 2
+  \]
+  donc
+  \[
+  \mbb{V}(X) = 2 - \frac{\pi}{2}.
+  \]
+  Essayez de justifier sans calculette le fait que
+  $e^{-\pi/4} > \mbb{V}(X)$.
+
+  \noindent Un calcul similaire à ce qui a été effectué jusqu'à
+  présent (toujours en complexifiant) donne
+  \[
+  \mbb{P}\big(|X- \mbb{E}(X)|\big) = 1 +
+  e^{-\pi/4}e^{-1/2}\left(e^{-\sqrt{\pi/2}} - e^{\sqrt{\pi/2}}\right).
+  \]
+  La calculatrice vous permet de voir que c'est un bien meilleur
+  encadrement que celui donné par l'inégalité de Tchebychev.
+\end{solution}
+
+
 \subsection{Lois à densités -- Conditionnement}
 
 \paragraph{Manipulation des lois conjointes et marginales.} On
@@ -155,7 +311,7 @@ manipulation des lois conditionnelles et conjointes à denstiés.
 \begin{question}
   Soit $(X, Y)$ un couple de variables aléatoires à dans
   $[0, +\infty[$, dont la loi conjointe a pour densité
-  \[ f_{X, Y}(x, y) = \frac{1}{2\sqrt{x}}e^{-y}\chi_D(x, y)
+  \[ f_{X, Y}(x, y) = \frac{1}{2\sqrt{x}}e^{-y}\bOne_D(x, y)
   \]
   où $D$ désigne le lieu de $\R^2$
   $\{(x, y) \mid x > 0, y > \sqrt{x}\}$.
@@ -164,6 +320,34 @@ manipulation des lois conditionnelles et conjointes à denstiés.
   \item Les variables $X$ et $Y$ sont elles indépendantes?
   \end{enumerate}
 \end{question}
+
+\begin{solution}
+  Les lois de $X$ et $Y$ ont des densités à supports dans
+  $[0, +\infty]$ (elles sont nulles à l'extérieur de cet
+  intervalle). Pour $x \in ]0, +\infty]$, on a:
+  \[
+  f_X(x) = \int_0^{+\infty} f_{(X, Y)}(x, y)\dd{y} = \int_0^{+\infty}
+  \frac{1}{2\sqrt{x}} e^{-y} \bOne_D(x,y)\dd{y} =
+  \frac{1}{2\sqrt{x}}\int_{\sqrt{x}}^{+\infty}e^{-y}\dd{y}
+  \]
+  donc
+  \[
+  f_X(x) = \frac{1}{2\sqrt{x}}e^{-\sqrt{x}}.
+  \]
+  Pour $y \in ]0, +\infty]$, on a:
+  \[
+    f_Y(y)  = \int_0^{+\infty} \frac{1}{2\sqrt{x}}e^{-y}\bOne_D(x, y)\dd{x}
+            = \int_0^{y^2} \frac{1}{2\sqrt{x}} e^{-y}\dd{x}
+  \]
+  et ainsi,
+  \[
+  f_Y(y)  = ye^{-y}.
+  \]
+
+   \noindent Dans la situation où les variables $X$ et $Y$ étaient
+   indépendantes, le produit de leurs densités serait égal à la
+   densité de la loi conjointe, ce qui n'est pas le cas.
+\end{solution}
 
 \begin{question}
   Soient $X$ et $Y$ deux variables aléatoires indépendantes de même
@@ -175,15 +359,128 @@ manipulation des lois conditionnelles et conjointes à denstiés.
   \end{enumerate}
 \end{question}
 
+\begin{solution}
+  On désigne respectivement par $f_X$, $f_Y$ et $f_{(X, Y)}$ les
+  densités de $X$, de $Y$ et de la loi conjointe $(X, Y)$. On cherche
+  à calculer la fonction de répartition de $R$. Pour tout
+  $t \in \R_+$, la condition
+  \[
+  R \leq t \Longleftrightarrow X^2 + Y^2 \leq t^2 \Longleftrightarrow
+  R \in D(\bs{o}, t)
+  \]
+  où $D(\bs{o}, t)$ désigne le disque de centre l'origine et de rayon
+  $t$. On a ainsi,
+  \[
+  \mbb{P}(R \leq t) = \int_{D(\bs{o}, t)} f_{(X, Y)}(x, y)\dd{x}\dd{y}
+  \]
+  Par indépendance la densité de la loi conjointe $(X, Y)$ est le
+  produits de celles de $X$ et de $Y$. Donc
+  \[
+  \mbb{P}(R \leq t) = \int_{D(\bs{o}, t)}
+  \frac{1}{\sqrt{2\pi}}e^{-x^2/2}\frac{1}{\sqrt{2\pi}}e^{-y^2/2}\dd{x}\dd{y}
+  \]
+  Au vu du lieu d'intégration il est naturel de vouloir passer en
+  coordonnées polaires. Je rappelle qu'on a, pour pouvoir effectuer ce
+  changement de variables, on utilise dans la pratique les relations
+  \[
+  x = r\cos(\theta), \quad y = r\sin(\theta) \quad \textrm{et} \quad
+  \dd{x}\dd{y} = r\dd{r}\dd{\theta}.
+  \]
+  On en déduit
+  \[
+  \mbb{P}(R \leq t) = \frac{1}{2\pi}\int_0^{2\pi}\int_0^t
+  e^{-r^2/2}r\dd{r}\dd{\theta} = \int_0^te^{-r^2/2}r\dd{r}.
+  \]
+  La loi de $R$ est donc donné par la densité
+  $f_R(r) = re^{-r^2/2}\bOne_{[0, +\infty]}(r)$.
+
+  \noindent L'espérence de $R$ est par définition
+  \[
+  \mbb{E}(R) = \int_0^{+\infty} e^{-r^2/2}\dd{r}
+  \]
+  Par symétrie de la densité d'une loi gaussienne d'espérence $0$ et
+  de variance $1$, l'espèrence de cette dernière est le double de
+  celle qui nous intéresse. Ainsi
+  \[
+  \mbb{E}(R) = \sqrt{\frac{\pi}{2}}
+  \]
+
+  \noindent On ne connaît ici la densité de la loi conjointe de $X$ et
+  $R$. Pour montrer que c'est deux lois ne sont pas indépendantes on
+  peut procéder en exhibant une évènement de la loi conjointe dont la
+  probabilités ne correspond pas au produit des évènements marginaux
+  qui le composent. Ici il suffit de voir que
+  \[
+  \mbb{P}(X > 1, R < 1) = 0
+  \]
+  mais $\mbb{P}(X > 1) \neq 0$ et $\mbb{P}(R < 1) \neq 0$.
+\end{solution}
+
+
 \begin{question}
-  Soit $(X, Y)$ une variable aléatoire à dans $]0, 1[\times ]0, 1[$,
-  de densité $f_{(X, Y)}(x, y) = 3\chi_D$ où $D$ est le lieu de $\R^2$
+  Soit $(X, Y)$ une variable aléatoire à valeurs dans
+  $]0, 1[\times ]0, 1[$, de densité
+  \[
+  f_{(X, Y)}(x, y) = 3\bOne_D
+  \]
+  où $D$ est le lieu de $\R^2$
   \[
   D = \big\{(x, y) \mid 0 < x^2 < y < \sqrt{x} < 1\big\}.
   \]
   Déterminer les lois conditionnelles et espérences condtionnelles de
   $Y$ par rapport à $X$ et de $X$ par rapport à $Y$.
 \end{question}
+
+\begin{solution}
+  La densité $f_X$ de $X$ est donnée par
+  \[
+  f_X(x) = \int_D 3\bOne_D(x, y)\dd{y}.
+  \]
+  La variable $x$ étant fixée, la fonction caractéristique
+  $\bOne_D(x, y)$ vaut $1$ ssi $ y \in [x^2, \sqrt{x}]$ avec
+  $x \in [0, 1]$. Donc
+  \[
+  f_X(x) = \left(\int_{x^2}^{\sqrt{x}} 3\dd{y}\right)\bOne_{]0, 1]}(x)
+  \]
+  On utilise ici la positivité de l'intégrale (Thm de Fubini) pour
+  pouvoir intervertir les éléments d'intégration. On en déduit
+  \[
+  f_X(x) = 3\left(\sqrt{x} - x^2\right)\bOne_{]0, 1]}(x).
+  \]
+  Pour le cas de $Y$ il suffit de remarque qu'on peut également écrire
+  $D$ sous la forme
+  \[
+  D = \big\{(x, y) \mid 0 < y^2 < x < \sqrt{y} < 1\big\}.
+  \]
+  En manipulant l'encadrement dans la définitionde $D$. On en déduit
+  donc que
+  \[
+  f_Y(y) = 3\left(\sqrt{y} - y^2\right)\bOne_{]0, 1]}(y).
+  \]
+  On en déduit les densités conditionnelles
+  \[
+  f_{X\mid Y = y}(x) = \frac{f_{(X, Y)}(x, y)}{f_Y(y)} =
+  \frac{1}{\sqrt{y} - y^2}\bOne_D(x, y)
+  \]
+  car l'appartenance à $D$ est plus contraignante que celle donnée par
+  $\bOne_{[0, 1]}$. La densité conditionnelle de $Y$ sachant $X = x$
+  est donnée par la même expression au noms des variables près. À
+  partir de là on trouve
+  \[
+  \mbb{E}(X \mid Y = y) = \int_\R xf_{X \mid Y = y}(x)\bOne_D{(x,
+    y)}\dd{x} = \int_{y^2}^{\sqrt{y}}\frac{x}{\sqrt{y} - y^2}\dd{x}.
+  \]
+  Un calcul direct donne
+  \[
+  \mbb{E}(X \mid Y = y) = \frac{\sqrt{y} + y^2}{2}\bOne_{]0,
+    1]}(y)\footnote{Rappel: $a^2-b^2 = (a-b)(a+b)$.}.
+  \]
+  On en déduit
+  \[
+  \mbb{E}(X \mid Y) = \frac{\sqrt{Y} + Y^2}{2}\bOne_{]0, 1]}(Y).
+  \]
+  Le calcul dans le cas de $\mbb{E}(Y \mid X)$ est identique.
+\end{solution}
 
 \section{De la probabilité en ML}
 \label{sec:ML}
@@ -291,25 +588,25 @@ suppose désormais que $F$ est l'ensemble discret $\{0, \ldots, k-1\}$.
 \label{sec:biaisVariance}
 
 
-% \pretitle{\vspace{-2\baselineskip} \begin{center}}
-% \title{%
-%   { \huge Solutions des exercices}%
-% }
-% \posttitle{
-% \end{center}
-%   \vspace{.5\baselineskip}
-%   \rule{\textwidth}{1.5pt}
-%   \vspace{-5\baselineskip}
-% }
+\pretitle{\vspace{-2\baselineskip} \begin{center}}
+\title{%
+  { \huge Solutions des exercices}%
+}
+\posttitle{
+\end{center}
+  \vspace{.5\baselineskip}
+  \rule{\textwidth}{1.5pt}
+  \vspace{-5\baselineskip}
+}
 
-% \maketitle\thispagestyle{fancy}
+\maketitle\thispagestyle{fancy}
 
-% \noindent Vous trouverez dans la suite solutions et indications d'une
-% partie des exercices de la feuille. Ceci étant majoritairement
-% accessibles il vous est suffisant de comparer votre travail au
-% résultats que vous retrouverez dans la suite.
+\noindent Vous trouverez dans la suite solutions et indications d'une
+partie des exercices de la feuille. Ceci étant majoritairement
+accessibles il vous est suffisant de comparer votre travail au
+résultats que vous retrouverez dans la suite.
 
-% \printsolutions
+\printsolutions
 
 \end{document}
 
