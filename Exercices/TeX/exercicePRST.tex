@@ -57,11 +57,11 @@ des intégrales généralisées.
 
 \begin{solution}
   L'expressions $x(x-1)$ décrit une parabole dont le sommet est
-  atteint en $1/2$ et y prend la valeur $1/4$. Sur $[0, 1]$ cette
-  parabole prend donc toutes les valeurs dans $[0, 1/4]$. Comme $X$
+  atteint en $1/2$ et y prend la valeur $-1/4$. Sur $[0, 1]$ cette
+  parabole prend donc toutes les valeurs dans $[-1/4, 0]$. Comme $X$
   prend ses valeurs dans $[0, 1]$, la V.A. Y prend ses valeurs dans
-  $[0, 1/4]$. On va décrire la fonction de répartition de $Y$. Soit
-  $t \in [0, 1/4]$.
+  $[-1/4, 0]$. On va décrire la fonction de répartition de $Y$. Soit
+  $t \in [-1/4, 0]$.
   \[
   Y \leq t \Longleftrightarrow X^2 - X - t \leq 0.
   \]
@@ -70,22 +70,22 @@ des intégrales généralisées.
   les racines. Une étude du discriminanet permet de voie que ces
   racines sont
   \[
-  \frac{1 - \sqrt{1-4t}}{2} \quad \textrm{et} \quad \frac{1 +
-    \sqrt{1-4t}}{2}.
+  \frac{1 - \sqrt{1+4t}}{2} \quad \textrm{et} \quad \frac{1 +
+    \sqrt{1+4t}}{2}.
   \]
   Ainsi
   \[
-  Y \leq t \Longleftrightarrow \frac{1 - \sqrt{1-4t}}{2} \leq X \leq
-  \frac{1 + \sqrt{1-4t}}{2}.
+  Y \leq t \Longleftrightarrow \frac{1 - \sqrt{1+4t}}{2} \leq X \leq
+  \frac{1 + \sqrt{1+4t}}{2}.
   \]
   Donc
   \[
-  \mbb{P}(Y \leq t) = \mbb{P}\left(\frac{1 - \sqrt{1-4t}}{2} \leq X \leq \frac{1 +
-    \sqrt{1-4t}}{2}\right) = 1 - \sqrt{1-4t}.
+  \mbb{P}(Y \leq t) = \mbb{P}\left(\frac{1 - \sqrt{1+4t}}{2} \leq X \leq \frac{1 +
+    \sqrt{1+4t}}{2}\right) = \sqrt{1+4t}.
   \]
   La densité $f_Y$ de $Y$ est ainsi donnée par
   \[
-  f_y(x) = \frac{2}{1 - 4x}\bOne_{[0, 1/4]}(x).
+  f_y(x) = \frac{2}{\sqrt{1 + 4x}}\bOne_{[-1/4, 0]}(x).
   \]
   Pour le voir il suffit de voir le fait que la densité est la dérivée
   de la fonction de répartition là où celle-ci est dérivable. Comme la
@@ -239,7 +239,7 @@ $f_X(x) =  \frac{1}{2}e^{-|x|}$.
   \]
   D'où
   \[
-  \mbb{E}(Y) = \frac{1}{2}\int_1^{+\infty}xe^{-x}\dd{x} + \frac{1}{2} \int_{-\infty}^1 e^{x}\dd{x}.
+  \mbb{E}(Y) = \frac{1}{2}\int_1^{+\infty}xe^{-x}\dd{x} + \frac{1}{2} \int_{-\infty}^0 e^{x}\dd{x} + \frac{1}{2}\int_{0}^1 e^{-x}\dd{x}.
   \]
   Une intégration par partie pour la première intégrale et un calcul
   direct pour la seconde donne
