@@ -1,0 +1,652 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[french]{babel}
+\usepackage{fancyhdr}
+\usepackage[margin=.8in]{geometry}
+
+\usepackage{Style/TeXingStyle}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\fancyhead[L]{EPITA\_ING2\_2020\_S8}
+\fancyhead[R]{Majeure SCIA}
+\fancyhead[C]{PRSTIA}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{2019}
+\fancyfoot[R]{\textbf{Chargé de cours :} \textsc{Bashar~DUDIN}}
+
+\pretitle{\vspace{-2.5\baselineskip} \begin{center}}
+\title{%
+  { \huge Formalisme Probabiliste}%
+}
+\posttitle{
+\end{center}
+\rule{\textwidth}{1.5pt}
+\vspace{-3\baselineskip}
+}
+\author{}
+\date{}
+
+\pdfinfo{
+   /Author (Bashar Dudin)
+   /Title  (Formalisme Probabiliste - 2019)
+   /Subject (Probabilités)
+}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle\thispagestyle{fancy}
+
+\begin{abstract}
+  Cette première période vise à introduire au plus tôt la terminologie
+  et les concepts qui sous-tendent la modélisation probabiliste. Ce
+  travail est nécessaire pour permettre une assimilation fluide des
+  concepts plus avancés de l'analyse probabiliste.
+\end{abstract}
+
+\tableofcontents
+
+\section{Questions de modélisation}
+\label{sec:questionsModelisation}
+
+On retrouve dans \cite{aleaprobasIX} la définition suivante d'une
+expérience aléatoire.
+\begin{defn}
+  On appelle \emph{expérience aléatoire} une expérience qui, reproduite
+  dans des conditions identiques, peut conduire à plusieurs résultats
+  possibles, et dont on ne peut prévoir le résultat par avance.
+\end{defn}
+\begin{question}
+  Essayez de nuancer cette définition.
+\end{question}
+\begin{defn}
+  L'espace de tous les résultats possibles d'une expérience aléatoire,
+  souvent noté $\Omega$, est appelé \emph{espace d'états} de
+  l'expérience. La lettre $\omega$ désigne souvent une \emph{issue} de
+  l'expérience ; on dit a $\omega \in \Omega$.
+\end{defn}
+\begin{question}
+  Décrire les espaces d'états des expériences aléatoires
+  \begin{enumerate}
+  \item le jet d'une pièce de monnaie ;
+  \item le lancer d'un dé à $6$ faces ;
+  \item le lancer de deux dès à $6$ faces de couleurs différentes ;
+  \item que se passe-t-il si l'on reproduit l'expérience précédente
+    avec deux dès indiscernables ;
+  \item durée de vie d'une batterie d'ordinateur portable ;
+  \item tir sur une cible circulaire de $1$ mètre de diamètre ;
+  \item nombre de pings sur un serveur dans un laps de temps ;
+  \item sortie d'une voiture autonome d'un circuit circulaire de $1m$
+    de rayon.
+  \end{enumerate}
+\end{question}
+Lors de l'étude d'une expérience aléatoire on s'intéresse souvent à
+des sous-ensembles d'issues possibles. On aimerait savoir quelle
+chance on a d'avoir plus de $10^3$ pings sur un serveur dans une
+seconde, ou la proportion de batterie d'ordinateurs qui tombent en
+panne en moins de $2$ ans. La notion d'\textit{évènement aléatoire}
+permet de résumer et généraliser ce concept.
+\begin{defn}
+  On appelle \emph{évènement aléatoire} associée à une expérience
+  aléatoire donnée, un sous-ensemble de l'espace des états $\Omega$
+  dont on peut dire s'il est réalisé ou non.
+\end{defn}
+\noindent Il n'y a pas de manière générale de spécifié indépendamment
+de l'expérience si un sous-ensemble de $\Omega$ peut-être réalisé ou
+non, cela va dépendre de la modélisation. La partie des sous-ensembles
+sur lesquels on peut jeter un tel jugement doivent cependant
+satisfaire un nombre d'axiomes communément acceptés. Voici quelques
+propriétés qu'on voudrait voir l'ensemble $\ms{A}$ des évènements
+qu'on peut juger réalisable ou non satisfaire.
+\begin{itemize}
+\item Si $A \in \ms{A}$ alors $A^c \in \ms{A}$: si l'on peut décider
+  qu'un évènement est réalisable alors on peut décider que le fait
+  qu'il ait non lieu soit réalisable également.
+\item Si $A$, $B \in \ms{A}$ alors $A \cap B \in \ms{A}$: si l'on peut
+  décider de la réalisabilité de deux évènements alors on peut décider
+  de leur réalisation simultanée.
+\item Si $A$, $B \in \ms{A}$ alors $A \cup B \in \ms{A}$: si l'on peut
+  décider de la réalisabilité de deux évènements alors on peut
+  décider de la réalisabilité d'au moins un des deux.
+\item $\Omega \in \ms{A}$: l'ensemble de toutes le issues possibles
+  est réalisable.
+\item $\emptyset \in \ms{A}$: l'ensemble vide ne contenant aucune
+  issue n'est jamais réalisable.
+\end{itemize}
+Ces propriétés ne sont pas exhaustives, on y revient à la prochain
+section, elles sont de plus redondantes. Par exemples si
+$\Omega \in \ms{A}$ et $\ms{A}$ contient le complémentaire de toute
+partie de $\ms{A}$ le fait que $\emptyset \in \ms{A}$ est
+automatique. De même, les deux premières propriétés permettent d'en
+déduire la troisième. Cela découle en effet de la relation
+\[
+  A \cup B = \big(A^c \cap B^c\big)^c
+\]
+où les composants du membre de droite sont toujours dans $\ms{A}$.
+
+La formalisation qu'on vient d'introduire permet de d'exprimer
+quelques énoncés de l'expérience aléatoire par le biais de la
+linguistique ensembliste. Par exemple, dire que deux évènements $A$ et
+$B$ ne peuvent se réaliser en même temps (ils sont
+\emph{incompatibles}) se traduit par le fait que
+$A \cap B = \emptyset$. De même, dire que si $A$ se réalise alors il
+en va de même de $B$ se traduit par $A \subset B$.
+
+\subsection{Espaces probabilisés}
+\label{sec:espacesprobabilises}
+
+La discussion précédente à propos de l'ensemble des évènements
+réalisables ignore la configuration suivante. On s'intéresse à
+l'expérience aléatoire qui consiste à jeter une pièce autant de fois
+qu'on le souhaite.
+\begin{question}
+  Décrire l'espace des états de l'expérience aléatoire précédente.
+\end{question}
+On désigne par $A_n$ l'évènement $A_n:$ on trouve pile au $n$-ème jet.
+\begin{question}
+  Traduire à l'aide des $A_n$ le fait qu'on tombe sur un pile au moins
+  une fois. Les axiomes précédents sont-ils suffisants pour garantir
+  le fait que l'ensemble obtenu est un évènement si les $A_n$ le sont?
+\end{question}
+Le fait d'être un ensemble d'évènements dont on peut juger de la
+réalisablilité\footnote{Cette dénomination nous permet de sortir du
+  sous-entendu délicat et problématique de l'existence et de la
+  cohérence d'une définition du type \textit{l'ensemble de tous les
+    évènements sur lesquels on peut émettre un tel jugement.}} va
+désormais être encoder par la notion de \emph{tribu}. Ce dernier n'est
+pas propre à la théorie des probabilités et a plutôt sa place en
+théorie de la mesure ; c'est celle-ci qui permet d'unifier les
+théories de l'intégration, des probabilités modernes (à la fois
+discrètes et continues).
+\begin{defn}
+  Soit $\Omega$ un espace d'états d'une expérience aléatoire. Un
+  sous-ensemble $\ms{A}$ de l'ensemble $\mc{P}(\Omega)$ des partie de
+  $\Omega$ est une \emph{tribu} sur $\Omega$ si
+  \begin{itemize}
+  \item $\Omega \in \ms{A}$ ;
+  \item si $A \in \ms{A}$ alors $A^c \in \ms{A}$ ;
+  \item si $\big(A_n\big)_{n \in \N}$ est une famille de parties dans
+    $\ms{A}$ alors $\bigcup_{n \in \N} A_n$ est encore dans $\ms{A}$.
+  \end{itemize}
+\end{defn}
+\begin{defn}
+  Un espace probabilisable est la donnée d'un couple
+  $\big(\Omega, \ms{A}\big)$ composé d'un espace d'états et d'une
+  tribu $\ms{A}$ sur $\Omega$.
+\end{defn}
+\begin{question}
+  On se donne un espace d'états $\Omega$. Construire deux tribus ; la
+  plus petite et la plus grande de votre point de vue.
+\end{question}
+Nous n'avons pas encore croisés de notion de probabilité. Il est
+certainement commun à tous que la probabilité d'un évènement est une
+proportion qui permet d'en apprécier la potentielle
+réalisabilité. Cette phrase qui semble claire cache en réalité de
+réelles difficultés à définir une pensée unique de la
+probabilité. Pour un peu de lecture je vous renvoie à
+\href{https://en.wikipedia.org/wiki/Probability\_interpretations}{\texttt{wikipedia
+    - interprétations des probabilités}}.  Depuis \textsc{Kolmogorov}
+on a un format abstrait qui permet, non d'unifier les différentes
+approches mais de résumer ce qui leur est commun.
+\begin{defn}
+  Soit $(\Omega, \ms{A})$ un espace probabilisable. Une probabilité
+  $\PP$ sur $(\Omega, \ms{A})$ est une fonction
+  $\PP : \ms{A} \rightarrow \R_+$ telle que
+  \begin{itemize}
+  \item $\PP(\Omega) = 1$ ;
+  \item Pour toute famille $\big(A_n\big)_{n\in \N}$ d'évènements
+    disjoints $2$ à $2$,
+    \[
+      \PP\Big(\bigsqcup_{n \in \N} A_n\Big) = \sum_{n \in \N} \PP\big(A_n\big)
+    \]
+  \end{itemize}
+  Sous ces conditions, le triplet $(\Omega, \ms{A}, \PP)$ est appelé un
+  \emph{espace probabilisé}.
+\end{defn}
+Comme c'est traditionnel en axiomatique mathématique ou lorsqu'on
+manipule les types abstraits en informatiques, les axiomes d'une
+définition ne sont pas les seules formules \textit{simplificatrices}
+qu'on utilise. En général elle découle de celles-ci.
+\begin{question}
+  On se donne un espace probabilisé $(\Omega, \ms{A}, \PP)$. Justifiez
+  les relations suivantes:
+  \begin{enumerate}
+  \item $\PP(\emptyset) = 0$ ;
+  \item $\forall A \in \ms{A}$, $0 \leq \PP(A) \leq 1$ ;
+  \item $\PP(A^c) = 1 - \PP(A)$ ;
+  \item si $A \subset B$, $\PP(A) \leq \PP(B)$ et
+    $\PP(B \setminus A) = \PP(B) - \PP(A)$ ;
+  \item pour tout $A$, $B \in \ms{A}$,
+    $\PP(A\cup B) = \PP(A) + \PP(B) - \PP(A\cap B)$.
+  \end{enumerate}
+\end{question}
+Voici quelques un peu d'exercice qui vise à manipuler des espaces
+probabilisés simples.
+\begin{question}
+  Brendan a $6$ briquets dans ses poches. Il n'y a qu'un qui
+  marche. Il les essaye à tour de rôle en jetant (enfin) ceux qui ne
+  marchent pas au fur et à mesure. Quelle est la probabilité qu'il
+  réussisse à allumer sa cigarette au $k$-ème essai?
+\end{question}
+\begin{question}
+  Au temps où la question de définir une théorie des probabilités
+  semblait nécessaire \textsc{H. Poincaré} a mis en évidence la
+  difficulté que sous-entendais cette problématique par l'exemple
+  suivant: lors du jet de deux dès indiscernables on peut ou bien
+  obtenir une probabilité de $\frac{11}{36}$ ou de $\frac{6}{21}$!
+  Comment fait \textsc{Poincaré} dans chacun de ses calculs?
+\end{question}
+\begin{question}
+  Quelle est la probabilité que deux personnes d'une population de
+  $N > 1$ individus aient leurs anniversaires le même jour de
+  l'année?\footnote{Rings a bell? Pourriez-vous revenir sur une
+    analyse du problème qui vous a été posé en quizz d'entrée SCIA?}?
+\end{question}
+Une dernière relation qu'on met à part mais qui présente une utilité
+dans certains problèmes\footnote{Par exemple le problème des $m$
+  anniversaires communs dans une population donnée.} est celui de la
+formule dite de \textsc{Poincaré}.
+\begin{prop}
+  Soient $(\Omega, \ms{A}, \PP)$ un espace probabilisé et $n \geq
+  2$. Pour toute famille $\big(A_i\big)_{i = 1}^n$ d'évènements dans
+  $\ms{A}$ on a
+  \[
+    \PP\Big(\bigcup_{i=1}^n A_i\Big) = \sum_{i=1}^n \PP(A_i) -
+    \sum_{1\leq i < j \leq n} \PP(A_i \cap A_j) + \sum_{1\leq i < j < k
+      \leq n} \PP(A_i\cap A_j \cap A_k) - \cdots + (-1)^{n-1}\PP(A_1\cap
+    A_2 \cap \cdots \cap A_n).
+  \]
+\end{prop}
+\begin{question}
+  \textit{Dessiner} cette la formule de \textsc{Poincaré} dans le cas
+  $m = 3$. En déduire une justification de la formule dans ce cas.
+\end{question}
+\begin{question}
+  Essayer de résoudre l'exercice \textit{Distribuer aléatoirement du
+    courrier} disponible sur
+  \href{https://www.coursera.org/learn/probabilites-1/supplement/8Shkn/distribution-aleatoire-du-courrier}{\texttt{Coursera}}
+  et visionner la solution à l'exercice correspondant.
+\end{question}
+
+\subsection{Variables aléatoires}
+\label{sec:va}
+
+Lors de la modélisation de la majeure partie des expériences
+aléatoires on est le plus souvent intéressé par des grandeurs
+numériques associées à celles-ci. Vous souhaitez connaître votre gain
+potentiel suivant le jeu que vous avez au poker ou encore le premier
+échec d'une expérience aléatoire n'ayant que deux issues possibles,
+répétées indéfiniment. Mathématiquement une telle grandeur numérique
+attachée à un espace probabilisé est simplement une fonction de la
+tribu de celle-ci vers $\R$. En général, et on reviendra plus en
+détail sur ce point pendant le cours, une variable aléatoire a pour
+cible un espace probabilisable.
+\begin{defn}
+  Soit $(\Omega, \ms{A}, \PP)$ un espace probabilisé et
+  $(\Pi, \ms{B})$ un espace probabilisable. Une variable aléatoire sur
+  $(\Omega, \ms{A}, \PP)$ et à valeurs dans
+  $(\Pi, \ms{B})$\footnote{Par abus et quand cela ne porte pas à
+    confusion on se contente de spécifier $\Omega$. La majeure partie
+    des VA auront pour but $\mathbb{R}$} (VA pour faire court) est une
+  fonction $X : \Omega \to \Pi$ telle que l'image réciproque d'un
+  évènement de $\Pi$ est un évènement de $\Omega$. Plus formellement
+  \[
+    \forall B \in \ms{B}, \qquad X^{-1}(B) \in \ms{A}.
+  \]
+\end{defn}
+\begin{nota}
+  Les notations consacrées à l'écriture des évènements définis par une
+  VA sont variées, souvent, et c'est la notation qu'on utilisera par
+  la suite. Avec les notations de la définition on désigne par
+  $(X \in B)$ l'évènement $X^{-1}(B)$.
+\end{nota}
+La donnée d'un espace probabilisé $(\Omega, \ms{A}, \PP)$ sous-entend
+d'être en mesure de décrire les valeurs que prend la probabilité $\PP$
+sur les évènements de $\PP$. La donnée d'une VA sur
+$(\Omega, \ms{A}, \PP)$ et à valeurs dans $(\Pi, \ms{B})$ réduit les
+évènements de $\ms{A}$ à ceux qui nous intéressent. Si l'on
+s'intéresse au jet de $2$ dés dont la somme est plus grande que $8$,
+on ne voit pas apparaître les évènements contenant l'issue $(1, 2)$
+dans les images réciproque de $8$ par la VA <<sommme des valeurs des
+deux dés jetés>>. L'étude d'une VA passe par la détermination des
+probabilités des évènements décrits par les images réciproques de
+celle-ci.
+\begin{center}
+  \begin{minipage}{0.7\textwidth}
+    \textit{
+      Décrire la loi de probabilité $\PP_X$ d'une VA $X$ sur
+      $(\Omega, \ms{A}, \PP)$ et à valeurs dans $(\Pi, \ms{B})$ signifie
+      déterminer les probabilités $\PP_X(B) = \PP(X \in B)$ pour chaque
+      $B \in \ms{B}$.
+    }
+  \end{minipage}
+\end{center}
+Théoriquement la loi d'une VA définit une probabilité sur $\Omega$.
+\begin{question}
+  Soit $X$ une VA sur $(\Omega, \ms{A}, \PP)$ et à valeurs dans
+  $(\Pi, \ms{B})$.
+  \begin{enumerate}
+  \item Justifier le fait que l'ensemble des parties de $\Omega$ donné
+    par $\ms{A}_X = \{X^{-1}(B) \mid B \in \ms{B}\}$ forme une tribu
+    sur $\Omega$.
+  \item Montrer le fait que $\PP_X$ est une probabilité sur
+    $(\Omega, \ms{A}_X)$.
+  \end{enumerate}
+\end{question}
+Voici une fa\c{c}on plus propre de parler de loi d'une VA, on fixe en
+particulier le fait qu'elle définit une probabilité sur un espace
+probablisable bien défini.
+\begin{defn}
+  Soit $X$ une VA sur l'espace probabilisé $(\Omega, \ms{A}, \PP)$ et
+  à valeurs dans un espace probabilisable $(\Pi, \ms{B})$. La loi
+  $\PP_X$ de la VA $X$ est la probabilité sur $(\Omega, \ms{A}_X)$
+  définie par
+  \[
+    \forall B \in \ms{B}, \qquad \PP_X(B) = \PP(X \in B).
+  \]
+  Décrire la loi de $X$ correspond donc à décrire la probabilité
+  $\PP_X$.
+\end{defn}
+\begin{question}
+  On considère l'expérience aléatoire du jet d'une pièce et du lancer
+  de deux dès.
+  \begin{enumerate}
+  \item Décrire la loi de la VA correspondant uniquement au jet de
+    pièce.
+  \item Décrire la loi de la VA qui correspond à la somme des valeurs
+    obtenues aux lancers des dès.
+  \item On considère le jeu qui consiste à gagner l'équivalent de la
+    somme des deux dès quand on tombe sur pile et d'en perdre autant
+    quand on tombe sur face. Décrire une VA qui qui quantifie ce gain.
+  \end{enumerate}
+\end{question}
+\begin{question}
+  On se donne un graphe \textit{simple} $G$ et deux sommets $s$ et
+  $d$. On souhaite avoir un chemin entre $s$ et $d$. Un étudiant Epita
+  pas très au fait des parcours de graphes\footnote{Bien sûr que vous
+    savez tous en faire ...} va voir un devin pour l'aider. Un devin
+  qui ne connaît pas très bien le métier choisit un chemin au hasard
+  parmi ceux possibles entre $s$ et $d$. On s'intéresse à la longueur
+  du chemin obtenu. Modéliser cette situation et décrire la loi de la
+  VA \textit{longueur de chemin} dans les cas suivants:
+  \begin{enumerate}
+  \item le graphe $G$ est un cycle de longueur $n$, $s$ et $d$ deux
+    sommets quelconques ;
+  \item le graphe $G$ est $K_5$, $s$ et $d$ deux sommets quelconques ;
+  \item le graphe $G$ est $K_{3, 3}$, $s$ et $d$ appartiennent à deux
+    biparties distinctes ;
+  \item le graphe $G$ est $K_{3, 3}$, $s$ et $d$ appartiennent à la
+    même bipartie.
+  \end{enumerate}
+\end{question}
+
+\section{Probabilités conditionnelles}
+\label{sec:probabilitesConditionnelles}
+
+Une partie substantielle de l'étude des expériences aléatoires se
+résume à mesurer le risque, ou l'impact, d'un évènement sur un
+autre. Quel risque a un adulte de contracter un cancer du poumon s'il
+est fumeur? Quel chance a un étudiant Epita d'intégrer SCIA s'il a
+raté GLP1? Cette démarche est particulièrement criante lors l'analyse
+de données. L'expression de ces questions dans le formalisme de
+Kolmogorov passe par la notion de probabilités conditionnelles.
+\begin{defn}
+  Soient $A$ et $B$ deux évènements de $(\Omega, \ms{A},
+  \PP)$. \emph{En supposant $\bs{\PP(B) > 0}$} la probabilité
+  conditionnelle de $A$ sachant $B$ est définie par
+  \[
+    \PP(A\mid B) = \frac{\PP(A\cap B)}{\PP(B)}.
+  \]
+\end{defn}
+\begin{question}
+  Soient $A$ et $B$ deux évènements de $(\Omega, \ms{A}, \PP)$ avec
+  $\PP(B) > 0$. Justifier le fait que la fonction
+  $\PP( - \mid B) : A \mapsto \PP(A \mid B)$ est une probabilité
+  sur $(\Omega, \ms{A})$.
+\end{question}
+La définition d'une probabilité conditionnelle ne prend réellement
+sens que dans la mesure où l'on saisit la notion d'indépendance de
+deux évènements ; cela sera abordé au cours de la prochaine section.
+
+La notion de probabilité conditionnelle permet une formulation usuelle
+de la probabilité d'un évènement en fonction d'un système complet
+d'évènements.
+\begin{defn}
+  Un \emph{système complet} d'évènements d'un espace probabilisé
+  $(\Omega, \ms{A}, \PP)$ est une famille $(A_i)_{i \in I}$
+  d'évènements incompatibles et dont l'union est égale à
+  $\Omega$.
+\end{defn}
+\begin{prop}
+  Étant donné un système complet d'évènements $(A_i)_{i \in I}$ de
+  $(\Omega, \ms{A}, \PP)$ on a la formule dite des \emph{probabilités
+    totales}: pour tout $A \in \ms{A}$
+  \[
+    \PP(A) = \sum_{i \in I} \PP(A \mid A_i)\PP(A_i).
+  \]
+\end{prop}
+\begin{question}
+  D'où vient la relation précédente?
+\end{question}
+\begin{question}
+  On souhaite répartir les étudiants d'\textit{IMAGE} et de
+  \textit{SCIA} sur deux groupes de TD. On a respectivement $n_1$ et
+  $n_2$ étudiants dans chacune des majeures. En \textit{IMAGE} on a
+  $d_1$ étudiants qui préfèrent les horaires du premier groupe de TD
+  et $p_1$ qui préfèrent le second. Les nombres correspondant pour les
+  \textit{SCIA} sont $d_2$ et $p_2$. Le prof ayant marre de gérer les
+  envies des uns et des autres décide de faire les choses au
+  hasard. Il procède ainsi: on choisit une des deux majeure en tirant
+  à pile ou face puis on tire au hasard un étudiant dans ce
+  groupe. Quelle est la probabilité de choisir ainsi un étudiant
+  mécontent?
+\end{question}
+
+\subsection{Indépendance de deux évènements}
+\label{sec:independance}
+
+\begin{question}
+  On s'intéresse à l'expérience aléatoire correspondante au jet de
+  deux dés de couleurs différentes (rouge et bleu) mais identiques par
+  ailleurs. Si $\Omega_1$ et $\Omega_2$ sont les espaces des états des
+  expériences correspondants respectivement au jet du premier et du
+  second dé, $\Omega = \Omega_1\times \Omega_2$ correspond au jet des
+  deux dès.
+  \begin{enumerate}
+  \item Décrire les évènements de $\Omega$ qui correspondent au fait
+    de s'intéresser uniquement aux résultats du premier jet (resp. du
+    second). Quelles sont les VA qui permettent d'isoler ces
+    évènements?
+  \item L'espace $\Omega$ permet désormais de comparer des évènements
+    au jet de chacun des deux dès. Calculer à l'aide de la description
+    précédente la probabilité de l'intersection de deux évènements
+    associés respectivement à chacun des dès.
+  \item On suppose désormais que si le résultat du dès rouge est pair
+    on ramène le résultat du second dès à $1$. Effectuer à nouveaux
+    l'étude précédente dans ce cas.
+  \item Quelle est la différence entre ces deux expériences?
+  \end{enumerate}
+\end{question}
+
+\begin{defn}
+  Deux évènements $A$ et $B$ de $(\Omega, \ms{A}, \PP)$ sont
+  \emph{indépendants} si
+  \[
+    \PP(A \cap B) = \PP(A)\PP(B).
+  \]
+\end{defn}
+\begin{rem}
+  La notion de probabilité conditionnelle d'un évènement $A$ sachant
+  $B$ permet, quand comparée à la probabilité de $A$, de mesurer
+  l'écart à l'indépendance des évènements $A$ et $B$.
+\end{rem}
+\begin{rem}
+  Dans la pratique on teste rarement l'indépendance d'évènements ou de
+  VA (\ref{sec:extVA}). Le contexte de la modélisation
+  l'explicite\footnote{Ou le sous-entend ... }.
+\end{rem}
+\begin{question}
+  Que dire de l'indépendance des évènements complémentaires
+  d'évènements indépendants.
+\end{question}
+L'indépendance est une notion qui s'étend au cas d'une famille
+d'évènements.
+\begin{defn}
+  Une famille d'évènements $(A_i)_{i \in I}$ est dite
+  \emph{indépendantes} si pour tout partie $J \subset I$, on a:
+  \[
+    \PP\left(\bigcap_{j \in J} A_j\right) = \prod_{j \in J}
+    \PP\big(A_j\big).
+  \]
+\end{defn}
+\begin{question}
+  Cet exercice est une variante de \cite[Exemple
+  3.1]{ouvrard1998probabilites}].  On considère un espace
+  probabilisable $(\Omega, \mc{P}(\Omega), \PP)$ ou tous les
+  évènements sont équiprobables et
+  $\Omega = \{\omega_1, \omega_2, \omega_3, \omega_4\}$. On note
+  $A = \{\omega_1, \omega_2\}$, $B = \{\omega_1, \omega_3\}$,
+  $C = \{\omega_1, \omega_4\}$. Montrer que les évènements $A$, $B$ et
+  $C$ sont deux à deux indépendants mais pas indépendants.
+\end{question}
+\begin{question}
+  Avec les notations de l'exercice précédent définir trois évènements
+  dont le produit des probabilités est pas égal à la probabilité de
+  leurs intersections mais qui ne sont pas indépendants.
+\end{question}
+
+\subsection{Formule de Bayes}
+\label{sec:bayes}
+
+Historiquement, deux approches de la théorie des probabilités ont eu
+un apport conséquent sur la définition et l'évolution de
+celle-ci. D'un côté l'approche fréquentiste qui cherche à définir la
+probabilité d'un évènement par la fréquence de réalisation de celui-ci
+par rapport au nombre de fois où l'on observe le déroulement de
+l'expérience aléatoire de départ. La seconde, dite
+\textit{bayesienne}, entrevoie la théorie des probabilités par sa
+capacité à décider de la potentielle réalisation conditionnelle d'un
+évènement à partir d'une estimation à priori de celle-ci.
+\begin{prop}
+  Soient $A$ et $B$ deux évènements de $(\Omega, \ms{A}, \PP)$ de
+  \textit{probabilités non nulles}, alors:
+  \[
+    \PP(A \mid B) = \frac{\PP(B \mid A)}{\PP(B)} \PP(A).
+  \]
+\end{prop}
+La formule précédente\footnote{Facile à justifier, essayez.} peut se
+comprendre dans le contexte suivant: supposons $A$ l'évènement qui
+correspond au fait d'avoir un cancer du poumon, l'évènement $B$ celui
+d'avoir une image rayon-X bien d'un type particulier ; la
+probabilité de gauche est celle d'avoir un cancer une fois connue
+l'image rayon-X, la probabilité $\PP(A)$ celle pour un individu
+d'avoir le cancer. On cherche à estimer la propriété à posteriori
+(connaissant une information supplémentaire) à partir de l'information
+à priori. Cette démarche est générale en ML ; on s'intéresse à la
+question de savoir à quelle classe appartient une observation à partir
+de données sur la fréquence d'occurrence de cette classe. Pour une
+observation donnée le modèle décidera d'affecter à une observation la
+classe pour laquelle la probabilité sachant cette observation est la
+plus élevées.
+\begin{prop}[Formule de \textsc{Bayes}]
+  Soit $(A_i)_{i \in I}$ un système complet d'évènements d'un espace
+  probabilisé $(\Omega, \ms{A}, \PP)$ tel que pour tout $i \in I$,
+  $\PP(A_i) > 0$. Alors pour tout $A \in \ms{A}$
+  \[
+    \PP(A_i \mid A) = \frac{\PP(A \mid A_i)\PP(A_i)}{\sum_{j \in
+        I}\PP(A\mid A_j)\PP(A_j)}.
+  \]
+\end{prop}
+\begin{question}
+  Justifiez la formule de \textsc{Bayes}.
+\end{question}
+\begin{question}
+  On considère trois fournisseurs de solutions logicielles numérotées
+  $1$, $2$ et $3$. Elles proposent toutes deux gammes du même
+  produit. Les produits de la première sont toujours bien suivis et il
+  y a peu de retours négatifs client. La seconde a un mauvais retour
+  client sur l'une de ses deux gammes. La dernière a des mauvais
+  retour sur l'ensemble de ces gammes. On souhaite choisir un de ces
+  produit. À la suite d'un manque de processus clair de décision on
+  finit par laisser le hasard choisir. On choisit un fournisseur au
+  hasard (avec équiprobabilité) puis au sein de celui-ci on choisit au
+  hasard (toujours avec équiprobabilité) l'une des deux gammes de
+  produit. En supposant être tombé sur un mauvais choix, quelles sont
+  nos chances de pouvoir changer pour une gamme ayant même produit
+  chez le même fournisseur?
+\end{question}
+\begin{question}
+  Vous retrouverez cet exercice ici \cite[Exercice
+  4.3]{ouvrard1998probabilites}. Dans une population donnée, on
+  suppose que la probabilité $p_k$ pour qu'une famille ait $k$ enfants
+  est définie par
+  \[
+    p_0 = p_1 = a, \quad \textrm{et, pour } k \geq 2, p_k =
+    \frac{(1-2a)}{2^{k-1}},
+  \]
+  où $a$ est un réel strictement compris entre $0$ et
+  $\frac{1}{2}$. On suppose de plus que la probabilité d'avoir un
+  gar\c{c}on ou une fille lors d'une naissance est la même.
+  \begin{enumerate}
+  \item Quelle est la probabilité pour qu'une famille ayant deux
+    gar\c{c}ons ait deux enfant seulement?
+  \item Quelle est la probabilité pour qu'une famille ait deux filles
+    sachant qu'elle a deux gar\c{c}ons?
+  \end{enumerate}
+\end{question}
+
+\subsection{Extension au cas des VA}
+\label{sec:extVA}
+
+L'extension de la notion de probabilité conditionnelle à celle de lois
+conditionnelles n'est pas aisée ; il nous manque un cadre qui permet
+d'unifier à la fois les cas de probabilités discrètes et continues, la
+théorie de la mesure de \textsc{Lebesgue}. On se contentera d'en
+séparer l'étude lors des prochaines périodes. La notion d'indépendance
+des VA reste accessible tel quelle à notre stade.
+\begin{defn}
+  Deux VA $X$ et $Y$ sur un espace probabilisé $(\Omega, \ms{A}, \PP)$
+  et respectivement à valeurs dans $(\Pi_1, \ms{B}_1)$ et
+  $(\Pi_2, \ms{B}_2)$ sont indépendantes si pour tout couples
+  d'évènements $(B_1, B_2) \in \ms{B}_1\times \ms{B}_2$ les deux
+  évènements $(X \in B_1)$ et $(X \in B_2)$ sont indépendants.
+
+  L'extension au cas de l'indépendance d'une famille quelconque de VA
+  est immédiate: les éléments d'une famille $(X_i)_{i \in I}$ de VA
+  sont indépendants si pour toute famille $(A_i)_{i \in I}$
+  d'évènements respectivement dans les cibles des $X_i$s les
+  évènements $(X_i \in A_i)$ le sont.
+\end{defn}
+Comme cela a déjà été formulé précédemment, dans la pratique on part
+souvent d'une hypothèse faite sur l'indépendance de VA. Il arrive
+cependant qu'on compose des VA avec d'autres VA dans le but d'en tirer
+une information plus à notre goût. Par exemple, on peut considérer les
+VA (\texttt{poids}, \texttt{taille}) sur la population fran\c{c}aise
+puis composer avec la VA qui en prend le ratio. La proposition
+suivante permet de s'affranchir de la stabilité de l'indépendance sous
+ce type d'opérations.
+\begin{prop}
+  Soit $(X_i)_{i \in I}$ une famille de VA indépendantes sur un espace
+  probabilisé $(\Omega, \ms{A}, \PP)$ et respectivement à valeurs dans
+  $(\Pi_i, \ms{B}_i)$. Si $(f_i)_{i \in I}$ est une famille de VA
+  telle que $f_i$ est définie sur $(\Pi_i, \ms{B}_i)$ alors
+  $\big(f_i(X_i)\big)$ définit encore une famille de VA indépendantes
+  sur $(\Omega, \ms{A}, \PP)$.
+\end{prop}
+\begin{question}
+  Discuter du fait qu'on n'a pas défini $f_i$ sur un espace
+  probabilisé mais uniquement probabilisable.
+\end{question}
+
+\bibliographystyle{alpha}
+\bibliography{PRSTIA}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,260 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[french]{babel}
+\usepackage{fancyhdr}
+\usepackage[margin=.8in]{geometry}
+
+\usepackage{Style/TeXingStyle}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\fancyhead[L]{EPITA\_ING2\_2019\_S8}
+\fancyhead[R]{Majeure SCIA}
+\fancyhead[C]{PRST}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{Avril 2018}
+\fancyfoot[R]{\textbf{Chargé de cours :} \textsc{Bashar~DUDIN}}
+
+\pretitle{\vspace{-.5\baselineskip} \begin{center}}
+\title{%
+  { \huge Examen de Probabilités}%
+}
+\posttitle{
+\end{center}
+  \begin{flushleft}
+    \vspace{3\baselineskip} \textit{
+      \!\!\emph{Durée de l'épreuve 3h.}\\
+      \! \emph{Les documents du cours ne sont pas autorisées, les calculettes non programmables le sont.}  \\
+      Le barême est indicatif et peut évoluer de manière
+      marginale. Vous avez $40$ points sur l'ensemble du sujet, un
+      coefficient adapté sera appliqué à vos résultats. Faites le
+      maximum que vous pouvez.}
+  \end{flushleft}
+  \rule{\textwidth}{1.5pt}
+  \vspace{-5\baselineskip}
+}
+\author{}
+\date{}
+
+\pdfinfo{
+   /Author (Bashar Dudin)
+   /Title  (Examen de probabilités - 2018)
+   /Subject (Probabilités)
+}
+
+\begin{document}
+
+\maketitle\thispagestyle{fancy}
+
+\section{Cas discret}
+
+Cette première partie se focalise sur l'étude de phénomènes discret.
+La première section s'intéresse à la somme de deux lois binômiales. On
+se propose dans la seconde d'étudier la loi de probabilité qui régit
+la réussite au QCMs de prépa intégrée Epita par une stratégie
+aléatoire\footnote{Et hasardeuse!}. Il s'agit de mettre à l'épreuve
+quelques raisonnements\footnote{Foireux!} de certains de nos chers
+étudiants. On décrit en un premier temnps le contexte dans lequel on
+se place.
+
+\subsection{Somme de binômiales}
+
+On se donne deux variables aléatoires indépendantes $X$ et $Y$ suivent
+des lois binomiales de paramètres respectifs $(n, p)$ et $(m, p)$ où
+$p \in ]0,1[$ et $n$, $m \in \N^*$.
+
+\begin{question}{3}
+  Identifier la loi suivie par la variable aléatoire $Z = X + Y$.
+\end{question}
+
+\subsection{Du hasard aux QCMs}
+
+Un QCM est composé de $n$ questions numérotées de $1$ à $n$. Pour
+chaque question $i$ on a $R_i$ suggestions numérotées de $1$ à
+$r_i$. Répondre à une question signifie cocher les suggestions qui
+semblent justes. La réponse à la question $i$ est une partie de $R_i$,
+éventuellement vide (le cas où l'on choisit de ne pas
+répondre). \emph{Il n'y a qu'une seule combinaison de suggestions
+  considérée comme la bonne réponse à une question donnée}. Toutes les
+autres réponses sont fausses et sinon \emph{NA}\footnote{Non
+  Assignée.}, dans le cas où l'étudiant choisi de ne pas répondre. Le
+fait de ne pas répondre n'est jamais considéré comme une bonne
+réponse.
+
+\begin{flushleft}
+  \textit{Pour simplifier l'étude nous allons supposer que toutes les
+    questions ont un même nombre de suggestions $r$.}\emph{On
+    suppose de plus que les réponses aux questions du QCMs sont
+    indépendantes.}
+\end{flushleft}
+
+\begin{question}{2}
+  Décrire l'espace d'états $\Omega_i$ de l'expérience aléatoire
+  \textit{répondre à la question $i$}. En déduire l'espace d'états
+  $\Omega$ qui correspond au fait de répondre à toutes les
+  questions. \emph{Indiquer le cardinal de chacun de ces espaces
+    d'états}.
+\end{question}
+
+On désigne par $\rho$ le nombre de réponses (ou non-réponses)
+possibles une question\footnote{Toutes les questions ont le même
+  nombres de suggestions $r$.}. Autrement dit,
+$\rho = \Card{\Omega_i}$. Soit $p \in [0, 1]$. On définit sur chaque
+$\Omega$ la probabilité suivante:
+\begin{enumerate}
+\item[\textbullet]
+  $\mbb{P}(\emptyset) = p$
+\item[\textbullet]
+  $\forall \omega \in \Omega_i\setminus \{\emptyset\}$,
+  $\mbb{P}(\omega) = \displaystyle{\frac{1-p}{\rho-1}}$.
+\end{enumerate}
+La probabilité $p$ est, donc, celle de ne pas répondre.
+\begin{question}{2}
+  Vérifier que $\mbb{P}$ est bien une probabilité sur
+  $\Omega_i$.
+\end{question}
+Pour chaque $i$ on désigne par $X_i$ la variable aléatoire sur
+$\Omega_i$ telle que
+\[
+X_i(\omega) = \left\{
+  \begin{matrix}
+    F & \textrm{si $\omega$ est une réponse fausse;}\\
+    V & \textrm{si $\omega$ est la bonne réponse;}\\
+    NA & \textrm{s'il n'y a pas de réponse.}
+  \end{matrix}
+  \right.
+\]
+
+\begin{question}{4}
+  Décrire la loi de $X_i$. Par hypothèse, les variables aléatoires
+  $X_i$ sont indépendantes. On note $X$ la variable aléatoire produit
+  des $X_i$. Quelle est la probabilité qu'un étudiant donne la bonne
+  réponse pour
+  \begin{enumerate}
+  \item une seulle question;
+  \item toutes les questions;
+  \item au moins deux questions?
+  \end{enumerate}
+\end{question}
+On s'intéresse désormais à la note de l'étudiant hasardeux. On désigne
+par $N_i$ la variable aléatoire sur $\Omega_i$ et à valeurs dans
+$\{-1, 0, 2\}$ qui représente la note à la question $i$. Par
+définition
+\[
+N_i(\omega) = \left\{
+  \begin{matrix}
+    -1 & \textrm{si $\omega$ est une réponse fausse;}\\
+    2 & \textrm{si $\omega$ est la bonne réponse;}\\
+    0 & \textrm{s'il n'y a pas de réponse.}
+  \end{matrix}
+  \right.
+\]
+\begin{question}{1}
+  Quel est le lien entre $N_i$ et $X_i$? En déduire que les $N_i$ sont
+  des variables aléatoires indépendantes.
+\end{question}
+La note totale de notre étudiant est $N = \sum_{i=1}^n N_i$. Notre but
+est d'étudier l'espérence et la variance de $N$ en passant par l'étude
+des séries génératrices des $N_i$. Le point technique réside dans le
+fait qu'on a définit une série génératrice dans le cas d'une variable
+aléatoire qui prenait ses valeurs dans $\N$, ce qui n'est pas le cas
+de $N_i$ (elle peut prendre la valeur $-1$). Pour contourner ce
+problème on s'intéresse à la variable aléatoire $K_i = N_i + 1$. Les
+$K_i$ prennent leurs valeurs dans $\{0, 1, 3\} \subset \N$. On désigne
+par $K$ la variable aléatoire $K = \sum_{i=1}^n K_i$.
+\begin{question}{3}
+  \begin{enumerate}
+  \item Quel est le lien entre $K$ et $N$?
+  \item Exprimer l'espérence de $K$ en fonction de celle de $N$.
+  \item Faire de même avec la variance.
+  \end{enumerate}
+\end{question}
+On s'intéresse désormais à la série génératrice de $K$.
+\begin{question}{7}
+  \begin{enumerate}
+  \item Donner l'expression de la série génératrice de $K_i$ en
+    fonction de $p$ et $\rho$.
+  \item En déduire la série génératrice de $K$.
+  \item En déduire l'espérence et la variance de $N$ en fonction de
+    $p$ et $\rho$.
+  \item Décrire la variance et l'espérence pour les cas
+    $\rho \in \{2, 3, 4\}$. Que pouvons-nous dire pour des $\rho > 4$?
+  \end{enumerate}
+\end{question}
+
+\section{Lois continues}
+
+Le travail qui suit porte sur les variables aléatoires à densités.
+
+\subsection{Un calcul de densité}
+
+On considère la variable aléatoire de densité $f(x) = 3x^3\bOne_{]0,1]}(x)$.
+\begin{question}{3}
+  On désigne par $Y$ la variable aléatoire $Y = 1/X$.
+  \begin{enumerate}
+  \item Calculer l'espérence de $Y$.
+  \item Déterminer la fonction de répartition $F_Y$ de $Y$ et en
+    déduire sa densité $f_Y$.
+  \end{enumerate}
+\end{question}
+
+\subsection{Lois exponontielles}
+
+On se donne deux variables aléatoires indépendantes $X$ et $Y$ de lois
+exponentielles respectivement de paramètres $\lambda$ et $\mu$. Pour
+rappel, la loi exponentielle de paramètre $\lambda$ est donnée par la
+densité
+\[
+f_X(x) = \lambda e^{-\lambda x}\bOne_{\R_+}.
+\]
+On s'intéresse aux variables aléatoire $Z = \min\{X, Y\}$ et $S = X+Y$.
+\begin{question}{3}
+  \begin{enumerate}
+  \item Exprimer $\{Z \geq t \}$ en fonction de $\{ X \geq t\}$ et
+    $\{Y \geq t\}$.
+  \item Montrer que $Z$ suit une loi exponentielle de paramètre
+    $\lambda$ + $\mu$.
+  \end{enumerate}
+\end{question}
+On s'intéresse désormais à la variable aléatoire $S$.
+\begin{question}{4}
+  \begin{enumerate}
+  \item Calculer $\mbb{V}(X)$ et $\mbb{E}(X)$. Vérifier, en particulier, que $\mbb{V}(X) = \mbb{E}(X)^2$.
+  \item Calculer la variance et l'espérence de $S$.
+  \item En déduire que $S$ ne peut pas suivre une loi exponentielle.
+  \end{enumerate}
+\end{question}
+
+
+\subsection{Loi uniforme sur un triangle}
+
+On note T l'intérieur du triangle dans $\R^2$ délimité par les points
+de coordonnées $(0,0)$, $(1,0)$ $(0,1)$. On note $Z = (X, Y)$ le
+couple de variables aléatoires de loi uniforme sur T. Autrement dit
+dont la denisté est $2\bOne_T$.
+
+\begin{question}{4}
+  \begin{enumerate}
+  \item Calculer les lois marginales de $X$ et de $Y$.
+  \item Calculer la covariance des variables aléatoires $X$ et
+    $Y$. Sont-elles indépendantes?
+  \end{enumerate}
+\end{question}
+
+\subsection{Loi uniforme sur un carré}
+
+On considère la loi $Z = (X, Y)$ définie comme la loi uniforme sur
+$[0, 1]^2$ ; sa fonction de répartion sur $\R^2$ est donnée par la
+fonction indicatrice $\bOne_{[0,1]^2}$.
+\begin{question}{4}
+  Montrer que les variables aléatoires  $X$ et $Y$ sont indépendantes,
+  de même loi uniforme sur $[0, 1]$.
+\end{question}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
