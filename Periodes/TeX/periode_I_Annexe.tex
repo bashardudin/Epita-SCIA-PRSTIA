@@ -1,0 +1,823 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[francais]{babel}
+\usepackage{fancyhdr}
+\usepackage[margin=.8in]{geometry}
+
+\usepackage{Style/TeXingStyle}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\fancyhead[L]{EPITA\_ING2\_2020\_S8}
+\fancyhead[R]{Majeure SCIA}
+\fancyhead[C]{PRSTIA}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{2019}
+\fancyfoot[R]{\textbf{Chargé de cours:} \textsc{Bashar~DUDIN}}
+
+\pretitle{\vspace{-2.5\baselineskip} \begin{center}}
+\title{%
+  {\huge Dénombrement - Fiche Théorique}%
+}
+\posttitle{
+\end{center}
+\rule{\textwidth}{1pt}
+}
+\author{}
+\date{}
+
+\pdfinfo{
+   /Author (Bashar Dudin)
+   /Title  (Dénombrement)
+   /Subject (SCIA - Probabilités)
+}
+
+\begin{document}
+
+\maketitle\thispagestyle{fancy}
+
+\begin{abstract}
+  Cette annexe constitue un rappel succint et un peu sec des contenus
+  de cours en dénombrement. C'est un rappel utile des démarches
+  théoriques qui sous-tendent les différentes stratégies de comptage
+  que l'on aborde dans le cours \texttt{PRSTIA}.
+\end{abstract}
+
+
+En mathématiques le dénombrement est l'acte de \emph{compter} ou
+d'\emph{énumérer} les éléments d'un ensemble. On compte le nombre de
+produits restant dans un rayon de supermarché, le nombre d'étudiants
+ayant réussi un examen, le nombre d'espèces animales
+disparues\footnote{Exemple qui n'est en rien lié au précédent :).}
+... etc.
+
+Ces exemples, intuitifs, ne sont pas la limite de ce qu'on
+souhaiterait pouvoir \emph{énumérer}. Dénombrer des ensembles finis et
+une manière de quantifier leurs <<~grosseurs~>>. De ce point de
+vue, il est naturel de se poser la question de savoir si l'ensemble
+des entiers relatifs $\Z$ est plus <<~gros~>> que celui des
+entiers relatifs $\N$. Ou encore si l'ensemble des nombres réels $\R$
+et plus grand que celui des rationnels $\Q$. C'est un aspect qu'on ne
+verra qu'en surface pour commencer. Son importance pour la suite de
+vos études va, cela dit, nous forcer à le prendre en compte dans les
+définitions qu'on donnera.
+
+\vspace{\baselineskip}
+Pour répondre aux questions laissées en suspens dans ce propos
+introductif, on verra dans la suite que $\Z$, $\N$ et $\Q$ sont aussi
+<<~gros~>> les uns que les autres mais que $\R$ est plus <<~gros~>>.
+
+\section{Ensembles finis}
+
+Dans le cas des ensembles finis la notion de cardinal correspond à
+celle de nombre d'éléments appartenant à l'ensemble. Il suffira de
+garder cette idée en tête en un premier temps, on reviendra sur la
+subtilité de cette définition par la suite. Le but de cette section
+est d'aborder la question de \emph{comment formaliser le fait de
+  compter?}.
+
+\begin{defn}
+  Un ensemble $E \neq \emptyset$ est fini s'il existe une bijection de
+  $E$ dans $\{1, 2, \ldots, n\}$ pour un entier $n > 0$. Par
+  convention l'ensemble vide $\emptyset$ est également fini.
+\end{defn}
+\noindent L'entier $n$ de la définition précédente n'est pas encore
+garanti d'être unique ; du moins la définition ne le dit pas.
+\begin{lem}
+  \label{lem:cardinj}
+  Soient $(n, m)$ un couple d'entiers naturels non nuls. S'il existe
+  une injection de $\{1, \ldots n\}$ dans $\{1, \ldots, m\}$ alors
+  $n \leq m$.
+\end{lem}
+\begin{proof}
+  On raisonne par récurrence sur $m$. Dans le cas où $m = 1$, toute
+  application de $\{1, \ldots, n\}$ sur $\{1\}$ est constante. Une
+  telle application est injective si et seulement si $n = 1$.
+
+  Dans le cas général, soit $f$ une application injective de
+  $\{1, \ldots, n\}$ vers $\{1, \ldots, m\}$. Quitte à renuméroter les
+  éléments de $\{1, \ldots, m\}$ on peut supposer que $f(n) =
+  m$. Comme $n$ est dans ce cas l'unique antécédant de $m$ par $f$, la
+  restriction de $f$ à $\{1, \ldots, n-1\}$ a une image dans
+  $\{1, \ldots, m-1\}$. Par hypothèse de récurrence il en vient que
+  $n-1 \leq m-1$, d'où $n \leq m$.
+\end{proof}
+\begin{cor}
+  \label{c:bonnedefcard}
+  Étant donné un ensemble fini $E \neq \emptyset$, l'entier naturel
+  $n$ tel que $E$ est en bijection avec $\{1, \ldots, n\}$ est unique
+  ; c'est le cardinal de $E$. Par convention le cardinal de
+  $\emptyset$ est $0$.
+\end{cor}
+\begin{proof}
+  Il n'y a rien à montrer pour le cas de l'ensemble vide car la
+  question est réglée par convention. On cherche à montrer que s'il
+  existe des bijections $f$ et $g$ respectivement de $E$ dans
+  $\{1, \ldots, n\}$ et $\{1, \ldots, m\}$, pour deux entiers naturels
+  $n$ et $m$, alors $n = m$. Sous de telles hypothèses on obtient les
+  deux bijections (et donc injections) $f^{-1}\circ g$ et
+  $g^{-1}\circ f$ respectivement de $\{1, \ldots, n\}$ dans
+  $\{1, \ldots, m\}$ et inversement. D'après le lemme \ref{lem:cardinj}
+  $n \geq m$ et $m \geq n$, donc $m = n$.
+\end{proof}
+
+\begin{nota}
+  Le cardinal d'un ensemble $E$ sera noté $\Card{E}$ ou encore
+  $\htag{E}$.
+\end{nota}
+
+La pratique du dénombrement consiste à calculer les cardinaux
+d'ensembles d'intérêt. Cette pratique se base sur un nombre de
+principes élémentaires qu'on déclinent suivant la stratégie de travail
+qu'on adopte. On reviendra sur ces principes, souvent intuitifs, à la
+section \ref{sec:principesEns}. On se limite pour l'instant à des
+exemples qu'on peut écrire explicitement.
+
+\begin{question}
+  Déterminer les cardinaux des ensembles décrits par la suite:
+  \begin{itemize}
+  \item Le nombre d'entiers pairs plus petits que $12$. Ceux plus
+    petits que $13$? Comment procéder dans le cas général?
+  \item Le nombre de points dont les deux coordonées sont entières
+    comprises entre $1$ et $7$ et qui se trouvent sur la droite
+    $ 2y = 1 - x$.
+  \item Le nombre de mots (sans qu'ils aient nécessairement du sens)
+    qu'on peut écrire en réordonnant les lettres de <<~abba~>>.
+  \end{itemize}
+\end{question}
+
+\begin{hyp}
+  À moins de faire explicitement mention de contraire les ensembles
+  qu'on manipulent sont \emph{finis}.
+\end{hyp}
+
+\section{Principes ensemblistes}
+
+\label{sec:principesEns}
+Certains principes de compatibilités des opérations ensemblistes à la
+notion de cardinal sous-tendent l'essentiel des raisonnements qu'on
+aborde dans ce cours. Ces principes sont intuitifs, même si les
+preuves de ceux-ci restent assez formelles.\footnote{Il est possible
+  de se contenter de dessin pour justifier chacun des principes en
+  question. Garder en extension les preuves formelles de celles-ci.}
+
+\begin{prop}
+  Soit $E$ un ensemble de cardinal fini et $\{A_i\}_{i \in I}$ une
+  partition finie ($I$ de cardinal fini) de $E$. Alors
+  \begin{equation}
+    \label{eq:cardpartition}
+    \Card{E} = \sum_{i \in I} \Card{A_i}.
+  \end{equation}
+\end{prop}
+\begin{proof}
+  On se contente d'une esquisse de la preuve. Une preuve par
+  récurrence serait plus adaptée si l'on souhaite en donner une
+  particulièrement rigoureuse, mais il ne semble pas que celle-ci
+  apporte une visibilité plus accrue quant à la justification de cette
+  proposition.
+
+  Si $I$ est vide $E$ est de même et la relation
+  \ref{eq:cardpartition} est satisfaite. Supposons que $I$ n'est donc
+  pas vide. Par hypothèse sur $I$ on peut identifier $I$ à
+  $\{1, \ldots, p\}$ pour $p \geq 1$. De même chaque $A_i$ est en
+  bijection avec $\{1, \ldots, n_i\}$ pour $n_i > 0$. On suppose ici
+  les $A_i$ non-vide, ce qui ne change rien au résultat. On construit
+  pour chaque $i \in \{1, \ldots, p\}$ une bijection obtenue par
+  \emph{shift} de $\{1, \ldots, n_i\}$ vers
+  $\{s_i + 1, \ldots, s_i + n_i\}$ où $s_i = \sum_{k=1}^{i-1} n_k$
+  (par convention ici $s_1 = 0$). En regroupant ces bijections, on
+  obtient une bijection de $E$ sur $\{1, \ldots, s_p\}$. Or $s_p$ est
+  précisément le membre de droite de \ref{eq:cardpartition}. Pour une
+  description plus imagée de cette proposition voir
+  figure \ref{fig:partition}.
+\end{proof}
+\begin{figure}
+  \centering
+  \colorlet{grayedarea}{gray!20}
+  \begin{tikzpicture}
+    \fill[grayedarea] (1, 0) rectangle (2, 4) ;
+    \draw (2, 0) grid[step=1] (3, 8);
+    \draw (0, 0) grid[step=1] (1, 7);
+    \draw (1, 0) grid[step=1] (2, 4);
+    \draw (3, 0) grid[step=1] (4, 6);
+    \draw (4, 0) grid[step=1] (5, 7);
+    \draw (5, 0) grid[step=1] (6, 5);
+    \node at (1.5, -.5) {$i = 1$};
+    \node at (2.5, 8.5) {$A_2$};
+    \node at (.5, 7.5) {$A_0$};
+    \node at (1.5, 4.5) {$A_1$};
+    \node at (3.5, 6.5) {$A_3$};
+    \node at (4.5, 7.5) {$A_4$};
+    \node at (5.5, 5.5) {$A_5$};
+  \end{tikzpicture}
+  \caption{Cardinal d'un ensemble fini via une partition.}
+  \label{fig:partition}
+\end{figure}
+\begin{cor}
+  Soit $F$ un sous-ensemble d'un ensemble fini $E$. Alors
+  \[
+    \Card{F} \leq \Card{E}.
+  \]
+\end{cor}
+\begin{proof}
+  La décomposition
+  \[
+    E = F \sqcup \big( E \setminus F \big),
+  \]
+  qu'on retrouve représentée figure \ref{fig:subset}, donne
+  \[
+    \Card{E} = \Card{F} + \underbrace{\Card{E \setminus F}}_{\geq 0}.
+  \]
+  D'où la relation recherchée.
+\end{proof}
+\begin{figure}[h]
+  \centering
+  \colorlet{circle edge}{gray}
+  \colorlet{circle area}{gray!20}
+
+  \tikzset{filled/.style={fill=circle area, draw=circle edge, thick},
+    outline/.style={draw=circle edge, thick}}
+
+  \setlength{\parskip}{5mm}
+
+  \begin{tikzpicture}[scale=0.9]
+    % Set E or F
+    \draw[filled] (0, 0) circle (2cm)
+                  (-.5, -.5) circle (1cm) node {$F$};
+    \node at (0.5, 1) {$E$};
+    % Set E \ F
+    \begin{scope}
+      \draw[filled] (5.5, -.5) circle (1cm) node {$F$};
+    \end{scope}
+    \draw[outline] (5.5, -.5) circle (1cm)
+                   (6, 0) circle (2cm);
+    \node at (6.5, 1) {$E$};
+    % Set F
+    \begin{scope}
+      \clip (12, 0) circle (2cm);
+      \draw[filled, even odd rule] (12, 0) circle (2cm)
+                                   (11.5, -.5) circle (1cm) node {$F$};
+    \end{scope}
+    \draw[outline] (12, 0) circle (2cm)
+                   (11.5, -.5) circle (1cm);
+    \node at (12.5, 1) {$E$};
+    \node at (3, 0) {$=$};
+    \node at (9, 0) {$\setminus$};
+  \end{tikzpicture}
+  \caption{Cardinal d'ensembles finis et inclusion.}
+  \label{fig:subset}
+\end{figure}
+\begin{cor}
+  Soient $F$ et $G$ deux sous-ensembles d'un ensemble fini $E$. Alors
+  \[
+    \Card{F \cup G} = \Card{F} + \Card{G} - \Card{F\cap G}.
+  \]
+\end{cor}
+\begin{proof}
+  On peut partitionner l'union $F \cup G$ de la manière suivante (voir
+  figure \ref{fig:union}):
+  \[
+    F\cup G = F\sqcup \Big( G\setminus (F\cap G) \Big).
+  \]
+  D'après le premier principe on obtient
+  \begin{equation}
+    \label{eq:carddisjoint}
+    \Card{F\cup G} = \Card{F} + \Card{G\setminus (F\cap G)}.
+  \end{equation}
+  Or
+  \[
+    G = \Big(G\setminus (F\cap G)\Big) \sqcup (F\cap G).
+  \]
+  Donc
+  \[
+    \Card{G} = \Card{G\setminus (F\cap G)} + \Card{(F\cap G)}.
+  \]
+  On retrouve la relation rechercée en reinjectant cette relation dans
+  l'équation \ref{eq:carddisjoint}.
+\end{proof}
+\begin{figure}[h]
+  \centering
+  \colorlet{circle edge}{gray}
+  \colorlet{circle area}{gray!20}
+
+  \tikzset{filled/.style={fill=circle area, draw=circle edge, thick},
+    outline/.style={draw=circle edge, thick}}
+
+  \setlength{\parskip}{5mm}
+
+  \begin{tikzpicture}[scale=0.9]
+    % Set E or F
+    \draw[filled] (0, 0) circle (1.5cm) node {$E$}
+                  (0:2cm) circle (1.5cm) node {$F$};
+    \node[anchor=south] at (1, 1.5) {$E \cup F$};
+    % Set E
+    \begin{scope}
+      \draw[filled] (6, 0) circle (1.5cm) node {$E$};
+    \end{scope}
+    \draw[outline] (6, 0) circle (1.5cm)
+                   (8, 0) circle (1.5cm) node {$F$};
+    \node[anchor=south] at (7, 1.5) {$E$};
+    % Set E but not F
+    \begin{scope}
+      \clip (14, 0) circle (1.5cm);
+      \draw[filled, even odd rule] (12, 0) circle (1.5cm)
+                                   (14, 0) circle (1.5cm) node {$F$};
+    \end{scope}
+    \draw[outline] (12, 0) circle (1.5cm) node {$E$}
+                   (14, 0) circle (1.5cm);
+    \node[anchor=south] at (13, 1.5) {$E\setminus F$};
+    \node at (4, 0) {$=$};
+    \node at (10, 0) {$\sqcup$};
+    \node at (4, -3) {Le dernier terme de cette décomposition s'écrit également};
+    % Set E but not F
+    \begin{scope}
+      \clip (2, -6) circle (1.5cm);
+      \draw[filled, even odd rule] (0, -6) circle (1.5cm)
+                                   (2, -6) circle (1.5cm) node {$F$};
+    \end{scope}
+    \draw[outline] (0, -6) circle (1.5cm) node {$E$}
+                   (2, -6) circle (1.5cm);
+    \node[anchor=south] at (1, -4.5) {$E\setminus F$};
+    \begin{scope}
+      \draw[filled] (8, -6) circle (1.5cm) node {$F$};
+    \end{scope}
+    \draw[outline] (8, -6) circle (1.5cm)
+                   (6, -6) circle (1.5cm) node {$E$};
+    \node[anchor=south] at (7, -4.5) {$F$};
+    \begin{scope}
+        \clip (12, -6) circle (1.5cm);
+        \fill[filled] (14, -6) circle (1.5cm);
+    \end{scope}
+    \draw[outline] (12, -6) circle (1.5cm) node {$E$};
+    \draw[outline] (14, -6) circle (1.5cm) node {$F$};
+    \node[anchor=south] at (13, -4.5) {$E \cap F$};
+    \node at (4, -6) {$=$};
+    \node at (10, -6) {$\setminus$};
+  \end{tikzpicture}
+  \caption{Cardinal de l'union de deux ensembles finis.}
+  \label{fig:union}
+\end{figure}
+\begin{prop}
+  Soient $\{A_i\}_{i \in I}$ une famille finie ($I$ est de cardinale
+  fini) d'ensembles finis. On note $P$ le produit cartésien des $A_i$
+  pour $i \in I$. Alors
+  \[
+    \Card{P} = \prod_{i \in I} \Card{A_i}.
+  \]
+\end{prop}
+\begin{proof}
+  On raisonne par récurrence sur le cardinalt de $I$. Par convention,
+  le produit d'une famille indexée par $\emptyset$ est $0$. La
+  relation est donc vérifiée dans ce cas. Ce cas étant une situation
+  marginale, et un peu délicate à entendre, on se contente de débuter
+  notre raisonnement au cas où $I$ est de cardinal $1$. Il n'y a dans
+  ce cas rien à montrer ; les deux ensembles impliqués dans les
+  membres de gauche et droite de l'égalité sont les mêmes. On se donne
+  désormais un ensemble $I$ de cardinal $n+1$ et $i_0 \in I$. On a
+  \[
+    P = \bigsqcup_{k \in A_{i_0}} {k}\times\left(\prod_{i \in
+        I\setminus i_0} A_i\right).
+  \]
+  D'après notre premier principe cela implique
+  \[
+    \Card{P} = \Card{A_{i_0}} \times \Card{\prod_{i \in I\setminus i_0} A_i}.
+  \]
+  On conclut par hypothèse de récurrence au rang $n$. La démarche
+  qu'on vient de mettre en évidence est représentée figure
+  \ref{fig:product}.
+\end{proof}
+\begin{figure}
+  \centering
+  \colorlet{grayedarea}{gray!20}
+  \begin{tikzpicture}
+    \fill[grayedarea] (.5, -.5) rectangle (1.5, 8.5) ;
+    \draw[dashed] (0, 0) grid[step=1] (7, 8);
+    \foreach \x in {0, 1, ..., 7}{
+      \foreach \y in {0, 1, ..., 8}{
+        \node[draw, circle, inner sep=2pt, fill] at (\x, \y) {};
+      }
+    }
+    \node at (1, -1) {$i_0$};
+    \node at (-1, 4) {$A_2$};
+    \node at (3.5, -1) {$A_1$};
+  \end{tikzpicture}
+  \caption{Cardinal d'un produit cartésien d'ensembles finis.}
+  \label{fig:product}
+\end{figure}
+\section{Les dénombrements de référence}
+
+Au côtés des principes étudiés précédemment il existe quelques
+dénombrements de référence qu'il est avisé de connaître. Ils sont
+d'utilisation constante dans la pratique.
+
+\subsection{Nombres de bijections}
+
+Comme le titre le dit : on souhaite calculer le nombre de bijections
+entre deux ensembles finis donnés. D'après \ref{c:bonnedefcard}
+l'ensemble des bijections entre deux ensembles finis est non vide si
+et seulement si ils ont même cardinaux.
+\begin{question}
+  \label{q:bijection}
+  Dénombrer l'ensemble des bijections de l'ensemble des $3$ points
+  cardinaux $\mc{E} = \{E, S, W\}$ vers celui des couleurs
+  $\mc{F} = \{\spadesuit, \heartsuit, \clubsuit\}$ d'un jeux de
+  cartes.
+\end{question}
+\begin{rem}
+  Le comptage précédent revient à compter les bijections de
+  $\{1, 2, 3\}$ dans lui même. En effet, il existe des bijections
+  $f$ et $g$ respectivement de $\mc{E}$ et $\mc{F}$ vers
+  $\{1, 2, 3\}$. À toute bijection $\beta : \mc{E} \to \mc{F}$
+  correspond la bijection $g\circ\beta\circ f^{-1}$ de $\{1, 2, 3\}$
+  sur lui-même. Inversement une bijection $\gamma$ de $\{1, 2, 3\}$
+  dans lui même donne la bijection $g^{-1}\circ\gamma\circ f$ de
+  $\mc{E}$ dans $\mc{F}$.
+  \[
+    \begin{tikzcd}
+      \{1, 2, 3\}
+      \arrow[rrr, bend right, "g\circ\beta\circ f^{-1}" below] &
+      \mc{E} \arrow[l, "f" above] \arrow[r, "\beta"] &
+      \mc{F} \arrow[r, "g"] &
+      \{1, 2, 3\}
+    \end{tikzcd}
+    \qquad
+    \begin{tikzcd}
+      \mc{E} \arrow[r, "f"]
+      \arrow[rrr, bend right, "g^{-1}\circ\gamma\circ f" below] &
+      \{1, 2, 3\} \arrow[r, "\gamma"] &
+      \{1, 2, 3\} &
+      \mc{F} \arrow[l, "g" above]
+    \end{tikzcd}
+  \]
+\end{rem}
+Le raisonnement précédent est général. Étudier les bijections entre
+deux ensembles finis (nécessairement de même cardinal, si l'on espère
+au moins une bijection) revient à étudier les bijections de
+$\{1, \ldots n\}$ dans lui même.
+\begin{nota}
+  Soit $n \in N^*$. On appelle \emph{permutation} de
+  $\{1, \ldots, n\}$ toute bijection de $\{1, \ldots, n\}$. L'ensemble
+  des permutations de $\{1, \ldots, n\}$ est noté $S_n$ ou encore
+  $\mf{S}_n$.
+\end{nota}
+Cherchons à se donner une permutation $\sigma$ de $\{1, \ldots, n\}$
+pour un entier $n > 1$. En supposant qu'on connaisse l'image de $1$
+par $\sigma$, il nous reste plus qu'à trouver une bijection de
+$\{2, \ldots, n\}$ dans $\{1, \ldots, n\}\setminus \sigma(1)$. Au
+réordonnement prêt des éléments de ces deux ensembles on vient de se
+ramener à trouver une permutation de $\{1, \ldots, n-1\}$. On peut
+donc écrire
+\[
+  \mf{S}_n = \bigsqcup_{i=1}^n \{i\}\times \mf{S}_{n-1}.
+\]
+où la première coordonnées correspond à l'image de $1$. On en déduit
+donc, pour tout entier $n > 1$
+\[
+  \Card{\mf{S}_n} = n \times \Card{\mf{S}_{n-1}}.
+\]
+Un calcul du cardinal de $\mf{S}_1$ permet de calculer le nombre de
+permutations de $\{1, \ldots, n\}$ par récurrence.
+\begin{defn}
+  Soit $n \in \N$. On appelle \emph{factoriel} $n$, noté $n!$
+  l'entier naturel défini récursivement par
+  \begin{itemize}
+  \item[\textbullet] $0! = 1$ ;
+  \item[\textbullet] $n! = n \times (n-1)!$.
+  \end{itemize}
+\end{defn}
+\begin{prop}
+  Soit $n \in \N^*$. L'ensemble des permutations $\mf{S}_n$ est de
+  cardinal $n!$.
+\end{prop}
+\begin{question}
+  Calculer le nombre
+  \begin{itemize}
+  \item de manières d'ordonner les listes $[1; 2; 3; 3; 5; 6]$,
+    $[1; 2; 3; 3; 5; 6]$ ;
+  \item de mots qu'on crée à partir du mot <<~saperlipopette~>>.
+  \end{itemize}
+\end{question}
+
+\subsection{Arrangements}
+
+Le nombre d'arrangements est le nombre d'\emph{injections} de
+$\{1, \ldots, k\}$ dans $\{1, \ldots, n\}$. Comme dans le cas des
+permutations ; cela sert de modèle pour le nombre d'injections entre
+deux ensembles finis quelconques. Toujours d'après
+\ref{c:bonnedefcard} pour que l'ensemble des arrangements soit non
+vide il faut $k \leq n$.
+
+Soient $k$, $n$ deux entiers tels que $n > 1$ et $k < n$. On note
+$A_{k, n}$ l'ensemble des arrangements de $\{1, \ldots, k\}$ dans
+$\{1, \ldots, n\}$. Par un raisonnement identique au cas des
+permutations on a la décomposition
+\[
+  A_{k, n} = \bigsqcup_{i=1}^n \{i\}\times A_{k - 1, n-1}.
+\]
+On en déduit donc
+\[
+  \Card{A_{k, n}} = n\times \Card{A_{k - 1, n-1}}.
+\]
+L'ensemble $A_{1, n - k + 1}$ correspond aux injections de $\{1\}$
+dans $\{1, \ldots, n - k + 1\}$.
+\begin{prop}
+  Étant donné deux entiers positifs $k$, $n$ tels que $k \leq n$ alors
+  \[
+    \Card{A_{k, n}} = n\times (n-1) \times \cdots \times (n - k + 1) = \frac{n!}{(n-k)!}.
+  \]
+\end{prop}
+\begin{question}
+  Exprimer le nombre de sous-chaînes de longueur $8$ et sans
+  répétitions qu'on peut extraire de l'alphabet.
+\end{question}
+
+\subsection{Combinaisons}
+
+Quand on étudie le problème de dénombrer les sous-chaînes de longueur
+$8$ de l'alphabet, on est préoccupé par l'ordre des lettres qui
+apparaissent dans celles-ci. Il n'en serait pas de même si l'on
+s'intéresse au nombres de manière de composer un sac de courses
+contenant $8$ produits à partir d'un ensemble fixé de produits. Qu'on
+prenne les tomates en premier ou en second ne change rien à la
+composition du sac. Dans le premier cas on s'intéresse au $8$-uplets de
+lettres de l'alphabet, dans le second on s'intéresse aux
+sous-ensembles ayant $8$ éléments composés de produits à disposition.
+
+Pour tout $k$, $n$ des entiers naturels tels que $k \leq n$ on note
+$C_{k, n}$ l'ensemble des parties ayant $k$ éléments de
+$\{1, \ldots, n\}$. On a une application
+$\phi : A_{k, n} \to C_{n, k}$ qui envoie un $k$-uplet de $A_{k, n}$
+sur la partie de cardinal $k$ correspondante dans $\{1, \ldots,
+n\}$. L'image réciproque d'un quelconque élément de $C_{k. n}$
+correspond à l'ensemble des manière d'ordonner les $k$ éléments de la
+partie concernée. Elle est de cardinal $k!$, on a donc
+\[
+  A_{k, n} = k!\times C_{k, n}.
+\]
+\begin{nota}
+  Soient $k$, $n$ deux entiers naturels avec $k \leq n$. On note
+  $\binom{n}{k}$ la quantité $\frac{n!}{k!(n-k)!}$. Cette quantité est
+  qualifiée de \emph{coefficient binômial}\footnote{La raison pour
+    cette dénomination apparaîtra de manière plus claire par la
+    suite.}.
+\end{nota}
+
+\begin{prop}
+  Étant donné des entiers naturels $k$, $n$ tels que $k \leq n$ on a
+  \[
+    \Card{C_{k, n}} = \frac{n!}{k!(n-k)!} = \binom{n}{k}.
+  \]
+\end{prop}
+\begin{question}
+  Calculer le nombre
+  \begin{itemize}
+  \item d'arêtes qu'on peut avoir dans un graphe ayant $3$ sommets ;
+  \item de fa\c{c}on d'avoir deux entiers naturels plus petits que
+    $10$ qui somment à $12$.
+  \end{itemize}
+\end{question}
+
+Les coefficients binômiaux satisfonts des propriétés algébriques qui
+en facilitent parfois la manipulation et l'usage.
+\begin{prop}
+  \label{prop:binom}
+  Pour tout entière naturel $n \in \N$ on a:
+  \begin{itemize}
+  \item[\textbullet]
+    $\forall k \in \N$, $k \leq \N$,
+    \[
+      \binom{n}{k} = \binom{n}{n-k}.
+    \]
+  \item[\textbullet]
+    Si $n > 0$, $\forall k \in \N$, $k \leq \N$,
+    \[
+      \binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}.
+    \]
+  \end{itemize}
+\end{prop}
+\noindent La première propriété est évidente, la seconde se constate
+en effectuant explicitement la somme des termes à droite de
+l'égalité. Elle est souvent appelée relation de Pascal\footnote{Vous
+  êtes invités à vous aider de Wikipedia pour rechercher ce qu'est le
+  triangle de Pascal.}.
+\begin{rem}
+  Les propriétés proposition \ref{prop:binom} permettent de réduire
+  les temps de calculs ayant pour objectif de générer les coefficients
+  binômiaux:
+  \begin{itemize}
+  \item la première propriété montre qu'il est suffisant de calculer ses
+    coefficients pour $k \in \{0, \ldots, \lceil n / 2 \rceil\}$ ;
+  \item la seconde permet d'accélerer les calculs des coefficients
+    binômiaux en stockant les valeurs calculées aux étapes
+    précédantes. Il faut pour cela remarquer que $\binom{n}{k}$
+    apparaît dans les calculs de $\binom{n+1}{k+1}$ et
+    $\binom{n+1}{k}$. C'est un processus similaire à l'implémentation
+    en complexité linéaire des termes de la suite de Fibonacci.
+  \end{itemize}
+\end{rem}
+
+\subsection{Formule du binôme de Newton}
+
+La formule du binôme de Newton est l'une des premières manifestations
+des coefficients binômiaux dans un contexte algébrique. Cette
+apparation permet dans des contextes plus généraux (comme les séries
+génératrices en probabilités) de manipuler des quantités
+combinatoires, issues de problèmes de dénombrement, algébriquement.
+\begin{prop}
+  Soit $n$ un entier naturel non nul. Pour tout $x$, $y \in \R$ on a
+  \[
+    (x + y)^n = \sum_{k=0}^n\binom{n}{k} x^k y^{n-k}.
+  \]
+\end{prop}
+On peut montrer cette formule par récurrence en s'aidant de la
+relation de Pascal pour l'hérédité. Voici une heuristique plus à même
+de la justifier : tous les termes de la somme contiennent $n$ monômes,
+chacun venant d'un facteur différent de la puissance. Le terme
+$x^ky^{n-k}$ apparaît autant de fois qu'on a de manière de choisir
+$k$-fois $x$ dans les $n$ facteurs de la puissance. C'est donc en
+bijection avec le nombre de sous-ensembles à $k$ élément d'un ensemble
+à $n$ éléments.
+
+\begin{exmp}
+  \label{exmp:binom}
+  Le nombre des parties d'un ensemble de cardinal $n$ est $2^n$. En
+  effet, on cherche à calculer la somme des coefficients binômiaux
+  $\binom{n}{k}$ pour $k \in \{0, \ldots, n\}$. Ainsi
+  \[
+    \sum_{k=0}^n \binom{n}{k} = \sum_{k=0}^n \binom{n}{k}1^k1^{n-k} =
+    (1+1)^n = 2^n
+  \]
+\end{exmp}
+\begin{exmp}
+  Le nombre des parties de cardinal pair d'un ensemble de cardinal
+  $n > 0$ est $2^{n-1}$. On remarque en un premier temps que
+  \[
+    0 = (1 - 1)^n = \sum_{k=0}^n \binom{n}{k}(-1)^k.
+  \]
+  D'où
+  \[
+    \sum_{0 \leq 2p \leq n} \binom{n}{2p} =  \sum_{0 \leq 2p+1 \leq n} \binom{n}{2p+1}.
+  \]
+  On trouve le résultat rechercé en réinjectant dans la relation
+  obtenue à l'exemple \ref{exmp:binom}.
+\end{exmp}
+
+\section{Extension au cas infini}
+
+L'ensemble des entiers naturels $\N$ n'est pas fini. En effet si tel
+était le cas, il existerait une bijection $f$ de $\{1, \ldots, n\}$
+sur $\N$ pour un entier $n > 0$. L'image de $f$ étant finie on peut
+écrire un programme qui nous en calcul le maximum. Le successeur du
+maximum n'est pas dans l'image, $f$ n'est donc pas surjective.
+
+On aimerait cela dit être en mesure de comparer l'ensemble des entiers
+naturels à celui des entier relatifs, rationnels ou réels. On va
+devoir, dans ce but, remodeler la définition de cardinal.
+
+\subsection{La notion de cardinal en général}
+
+\begin{defn}
+  Deux ensembles $F$ et $E$ sont dits être de même cardinal s'il
+  existe une bijection de l'un sur l'autre. On désinge par $\mc{R}$
+  cette relation.
+\end{defn}
+\noindent On désignge par $\mc{U}$ une classe (propre)\footnote{Pour
+  nous, cela n'est qu'une collection d'ensembles. Cette notion est
+  cependant nécessaire pour éviter le paradoxe de Russel. Wikipedia
+  est votre ami pour un peu plus de culture.} contenant les ensembles
+mathématiques d'usage courant $\N$, $\Q$, $\R$, $\C$ leurs unions,
+intersections, sous-ensembles et produits.
+\begin{prop}
+  La relation $\mc{R}$ est une relation d'équivalence sur $\mc{U}$.
+\end{prop}
+\begin{defn}
+  Le cardinal d'un ensemble dans $\mc{U}$ est sa classe d'équivalence
+  suivant la relation $\mc{R}$.
+\end{defn}
+\begin{rem}
+  Dans le cas fini, un ensemble $E$ a un unique représentant de la
+  forme $\{1, \ldots, n\}$ dans sa classe d'equivalence suivant
+  $\mc{R}$. On identifie dans ce cas le cardinal de $E$ à ce
+  $n$. C'est de la sorte qu'on retrouve la définition donnée au cours
+  de la section précédente.
+\end{rem}
+
+\subsection{Les ensembles dénombrables}
+
+\begin{defn}
+  Un ensemble est dit dénombrable s'il peut être mis en bijection avec
+  une partie de $\N$. Il est non dénombrable sinon.
+\end{defn}
+\begin{exmp}
+  L'ensemble $\N$ est dénombrable par définition.
+\end{exmp}
+\begin{exmp}
+  Les ensembles des entiers pairs, impairs ou des multiples d'un entier
+  positifs fixés sont dénombrables.
+\end{exmp}
+\begin{exmp}
+  Tout ensemble de la forme $\{ n \in \N \mid n > M\}$ pour un réel $M$
+  est dénombrable.
+\end{exmp}
+\begin{exmp}
+  L'ensemble des entiers relatifs $\Z$ est dénombrable. Il suffit pour
+  le voir de construire la bijection de $\N$ sur $\Z$ qui envoie
+  bijectivement les entiers pairs sur $\N \subset \Z$ et le entiers
+  impairs sur la partie strictement négative. Plus précisément on
+  définit la bijection $\psi : \N \to \Z$ par
+  \[
+    \psi(n) = \left\{
+      \begin{matrix}
+        p & \textrm{si $n = 2p$} \\
+        -(p+1) & \textrm{si $n = 2p+1$}
+      \end{matrix}.
+    \right.
+  \]
+\end{exmp}
+\begin{exmp}
+  Le produit cartésien $\N^2$ est dénombrable. On va se contenter de
+  décrire le procédé d'énumération des éléments de $\N^2$. Étant donné
+  un entier $k \in \N$, la droite $x + y = k$ contient exactement
+  $k+1$ entiers ; $(0, k), (1, k-1), \ldots, (k, 0)$. On compte les
+  couples d'entiers sur chacune de ses droites par ordre croissant en
+  commen\c{c}ant par $k = 0$. Arrivé à la droite de coefficient
+  constant $k$ on a épuisé
+  \[
+    \sum_{p=0}^k (p+1) = \frac{(k+1)(k+2)}{2}
+  \]
+  entiers. On reprend le décompte au successeur de cette quantité. Cette
+  démarche permet de construire une bijection de $\N$ sur $\N^2$. Elle
+  est représentée figure \ref{fig:N2denomb}.
+\end{exmp}
+\begin{figure}
+  \centering
+  \colorlet{grayedarea}{gray!20}
+  \begin{tikzpicture}
+    \draw[dotted, gray] (0, 0) grid[step=1] (7, 7);
+    \foreach \x in {0, 1, ..., 7}{
+      \foreach \y in {0, 1, ..., 7}{
+        \node[draw, circle, inner sep=2pt, fill, gray] at (\x, \y) {};
+      }
+    }
+    \foreach \x in {1, 2, ..., 7}{
+      \node at (\x, -.5) {$\x$};
+      \node at (-.5, \x) {$\x$};
+    }
+    \foreach \x in {0, 1, ..., 7}{
+      \draw[thick, -latex] (-.5, \x + .5) -- (\x + .5, -.5);
+    }
+  \end{tikzpicture}
+  \caption{Procédé d'énimération de $\N^2$.}
+  \label{fig:N2denomb}
+\end{figure}
+\begin{exmp}
+  L'ensemble des nombres rationnels $\Q$ est dénombrable. En effet,
+  chaque nombre rationnel $\frac{p}{q}$ a une unique forme réduite
+  (forme où $p$ et $q$ n'ont pas de facteurs communs différents de $1$
+  ou $-1$). L'application de $\Q$ dans $\Z^2$ qui envoie un nombre
+  rationnel vers un le couple composé du numérateur et dénominateur de
+  la forme réduite est une bijection sur une partie de $\Z^2$. Donc,
+  d'après les exemples précédents, sur une partie de $\N^2$ et donc de
+  $\N$.
+\end{exmp}
+
+\subsection{Non-dénombrabilité de $\R$}
+
+C'est un point qu'il nous est pas encore possible d'aborder
+proprement. Le fait que $\R$ soit d'un cardinal plus \emph{gros} que
+$\N$ nécessite plus d'aisance avec les représentations diadiques des
+nombres réels et les suites et séries numériques. Ce point, tout comme
+le précédent, pourra être revu avec un peu plus de détail lors des
+années prochaines. L'un des arguments pour montrer cette
+non-dénombrabilité se fait en deux temps. Vous connaissez le
+développement décimal d'un nombre réel, chaque chiffre de ce
+développement est un chiffre entre $0$ et $9$ compris. Le
+développement diadique d'un réel permet d'écrire un nombre réel
+uniquement avec des $0$ et des $1$, de la même manière. C'est une
+extension de l'écriture en base $2$ des entiers naturels. Cette
+écriture d'un nombre réel est unique à un cas prêt à exclure ; le cas
+où on n'a que des $1$ dans l'écriture diadique. Si on ne regarde que
+les indices des coefficients du développement égaux à $1$ on décrit une
+unique partie de $\N$. Cette démarche construit une bijection de $\N$
+dans $\mc{P}(\N)$. Vous avez cependant vus que $\N$ et $\mc{P}(\N)$ ne
+sont pas en bijection. D'où notre affirmation de départ.
+
+
+\subsection{Pathologies dans le cas infini}
+
+Les propriétés ensemblistes évoquées dans le cas des ensembles finis
+ne s'étendent pas au cadre général. Dans leurs énoncés la majeure
+partie introduiraient des sommes ou des produits infinis, la dernière
+comparerait des quantités qui ne sont pas réelles et qu'on ne sait
+donc pas comparer. Même si dans ce dernier point on gardait une notion
+vague de \emph{grosseur} d'un ensemble, on voit bien que l'inclusion
+stricte, par exemple $\N \subsetneq \Q$ n'implique pas une différence
+sur les cardinaux associés.
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

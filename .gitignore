@@ -221,3 +221,7 @@ TSWLatexianTemp*
 
 # Mac temp files
 .DS_Store/*
+
+# Emacs temp files
+*~
+*.el
