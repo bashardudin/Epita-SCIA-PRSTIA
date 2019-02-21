@@ -441,12 +441,31 @@ d'évènements.
   $n_2$ étudiants dans chacune des majeures. En \textit{IMAGE} on a
   $d_1$ étudiants qui préfèrent les horaires du premier groupe de TD
   et $p_1$ qui préfèrent le second. Les nombres correspondant pour les
-  \textit{SCIA} sont $d_2$ et $p_2$. Le prof ayant marre de gérer les
-  envies des uns et des autres décide de faire les choses au
-  hasard. Il procède ainsi: on choisit une des deux majeure en tirant
-  à pile ou face puis on tire au hasard un étudiant dans ce
-  groupe. Quelle est la probabilité de choisir ainsi un étudiant
-  mécontent?
+  \textit{SCIA} sont $d_2$ et $p_2$. Le prof n'étant pas très au point
+  sur les google formes choisit de procéder au hasard pour avoir les
+  préférences des étudiants Il procède ainsi: il choisit une des deux
+  majeures en tirant à pile ou face puis on tire au hasard un étudiant
+  dans la majeure.
+  \begin{enumerate}
+  \item Quelle est la probabilité de choisir un étudiant préférant le
+    premier groupe?
+  \item Le prof choisit désormais d'affecter aléatoirement les groupes
+    des différents étudiants. Pour chaque affectation il tire une
+    majeure à pile ou face puis choisit au hasard un étudiant pour le
+    premier groupe.
+    \begin{enumerate}
+    \item Sachant qu'on a deux fois plus de mécontents en SCIA que de
+      satisfaits peut-on déterminer la probabilité d'être mécontent en
+      SCIA?
+    \item Cela suffit-t-il pour avoir une information sur les mécontents
+      en image?
+    \item Le prof étant taquin il choisit de pousser le jeux un peu
+      plus loin. Décrire en un premier temps la loi de probabilités de
+      la VA nombre des étudiants de SCIA mécontents. Faire de même
+      pour la loi de probabilités de la VA nombre total d'étudiants
+      mécontents.
+    \end{enumerate}
+  \end{enumerate}
 \end{question}
 
 \subsection{Indépendance de deux évènements}
@@ -508,8 +527,8 @@ d'évènements.
 \end{defn}
 \begin{question}
   Cet exercice est une variante de \cite[Exemple
-  3.1]{ouvrard1998probabilites}].  On considère un espace
-  probabilisable $(\Omega, \mc{P}(\Omega), \PP)$ ou tous les
+  3.1]{ouvrard1998probabilites}.  On considère un espace
+  probabilisable $(\Omega, \mc{P}(\Omega), \PP)$ où tous les
   évènements sont équiprobables et
   $\Omega = \{\omega_1, \omega_2, \omega_3, \omega_4\}$. On note
   $A = \{\omega_1, \omega_2\}$, $B = \{\omega_1, \omega_3\}$,
@@ -518,8 +537,8 @@ d'évènements.
 \end{question}
 \begin{question}
   Avec les notations de l'exercice précédent définir trois évènements
-  dont le produit des probabilités est pas égal à la probabilité de
-  leurs intersections mais qui ne sont pas indépendants.
+  dont le produit des probabilités est égal à la probabilité de leurs
+  intersections mais qui ne sont pas indépendants.
 \end{question}
 
 \subsection{Formule de Bayes}
@@ -568,14 +587,14 @@ plus élevées.
   Justifiez la formule de \textsc{Bayes}.
 \end{question}
 \begin{question}
-  On considère trois fournisseurs de solutions logicielles numérotées
-  $1$, $2$ et $3$. Elles proposent toutes deux gammes du même
-  produit. Les produits de la première sont toujours bien suivis et il
-  y a peu de retours négatifs client. La seconde a un mauvais retour
-  client sur l'une de ses deux gammes. La dernière a des mauvais
-  retour sur l'ensemble de ces gammes. On souhaite choisir un de ces
-  produit. À la suite d'un manque de processus clair de décision on
-  finit par laisser le hasard choisir. On choisit un fournisseur au
+  On considère trois sociétés de développement de solutions
+  logicielles numérotées $1$, $2$ et $3$. Elles proposent toutes deux
+  gammes du même produit. Les produits de la première sont toujours
+  bien suivis et il y a peu de retours négatifs client. La seconde a
+  un mauvais retour client sur l'une de ses deux gammes. La dernière a
+  des mauvais retour sur l'ensemble de ces gammes. On souhaite choisir
+  un de ces produit. À la suite d'un manque de processus de décision
+  on finit par laisser le hasard choisir. On choisit un fournisseur au
   hasard (avec équiprobabilité) puis au sein de celui-ci on choisit au
   hasard (toujours avec équiprobabilité) l'une des deux gammes de
   produit. En supposant être tombé sur un mauvais choix, quelles sont
