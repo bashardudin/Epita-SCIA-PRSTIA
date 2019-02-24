@@ -1,0 +1,506 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[french]{babel}
+\usepackage{fancyhdr}
+\usepackage[margin=.8in]{geometry}
+
+\usepackage{Style/TeXingStyle}
+\zexternaldocument*{periode_I_Formalisme.tex}
+
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\fancyhead[L]{EPITA\_ING2\_2020\_S8}
+\fancyhead[R]{Majeure SCIA}
+\fancyhead[C]{PRSTIA}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{2019}
+\fancyfoot[R]{\textbf{Chargé de cours :} \textsc{Bashar~DUDIN}}
+
+\pretitle{\vspace{-2.5\baselineskip} \begin{center}}
+\title{%
+  { \huge Variables Aléatoires Discrètes}%
+}
+\posttitle{
+\end{center}
+\rule{\textwidth}{1.5pt}
+\vspace{-3\baselineskip}
+}
+\author{}
+\date{}
+
+\pdfinfo{
+   /Author (Bashar Dudin)
+   /Title  (VA Discrètes - 2019)
+   /Subject (SCIA - Probabilités)
+}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+\maketitle\thispagestyle{fancy}
+
+\begin{abstract}
+  Cette période (relativement courte) est consacrée à l'étude du cas
+  particulier des variables aléatoires discrètes. C'est un cadre
+  propice à la mise en pratique des concepts abordés jusqu'à présent,
+  sans la difficulté technique qui vient avec la manipulation des
+  variables aléatoires à densité.
+\end{abstract}
+
+\tableofcontents
+
+\section{Germe d'une VA discrète}
+\label{sec:germeVAdiscrete}
+
+Dans l'ensemble de cette feuille $(\Omega, \mc{A}, \PP)$ désigne un
+espace probabilisé muni de sa tribu $\mc{A}$ et d'une probabilité
+$\PP$.
+\begin{defn}
+  Une \emph{variable aléatoire discrète} sur $(\Omega, \mc{A}, \PP)$
+  est une variable aléatoire à valeurs dans un espace probabilisable
+  $\big(\Pi, \mc{P}(\Pi)\big)$ où $\Pi$ est un ensemble
+  \textit{dénombrable}.
+\end{defn}
+\begin{rem}
+  Dans la majorité des cas les VAs d'intérêt sont à valeurs dans un
+  sous-ensemble de $\R$, on limitera les définitions dans la suite à
+  ce cas. On suppose donc qu'une VA discrète est à valeurs dans $\R$.
+  Les valeurs que prend la VA sont dans ce cas indexées par les
+  entiers naturelles, elles forment un espace probabilisable muni de
+  la tribu de l'ensemble de ses parties.
+\end{rem}
+On appelle \emph{germe} d'une VA aléatoire discrète
+$X : \Omega \to \R$ la fonction $g$ donnée par la loi de $X$ sur les
+issues. Plus formellement,
+\[
+  \forall x \in \R, \qquad g(x) = \PP(X \in \{x\})
+\]
+On parle dans ce contexte du \emph{germe de $\bs{X}$ en $x$}.
+\begin{nota}
+  On simplifie la notation précédente en notant $\PP(X = x)$ la
+  probabilité $\PP(X \in \{x\})$.
+\end{nota}
+\begin{question}
+  En utilisant les axiomes définissant une probabilité montrer que la
+  loi d'une VA discrète $X : \Omega \to \R$ est caractérisée par ses
+  germes en tout point.
+\end{question}
+
+\section{Comparer deux VAs}
+\label{sec:comparerdeuxVAs}
+
+Il arrive souvent qu'on ait à étudier la réalisation simultanée des
+issues de deux VAs $X_1 : \Omega_1 \to \R$ et $X_2 : \Omega_2 \to \R$
+sur les espaces probabilisés respectivement donnés par
+$(\Omega_1, \mc{A}, \PP_1)$ et $(\Omega_2, \mc{A}, \PP_2)$.  Dans la
+démarche menée jusqu'à présent il nous fallait définir un espace
+probabilisable sur lequel on peut définir à la fois $X_1$ et $X_2$. En
+réalité, rendre explicite un tel espace n'est pas d'une grande
+importance dans la pratique ; il suffit de connaître les probabilités
+des issues simultanées et cela est uniquement déterminé par
+l'expérience aléatoire. La section qui suit a pour objectif de
+clarifier en quoi cette phrase fait sens.
+
+Il est facile d'exhiber un espace d'états sur lesquelles les VAs $X_1$
+et $X_2$ vivent naturellement : on considère tout simplement le
+produit cartésien $\Omega = \Omega_1\times \Omega_2$. On est tenté de
+prendre pour tribu sur $\Omega$ l'ensemble des évènements $A \times B$
+où $A \in \mc{A}$ et $B \in \mc{B}$.
+\begin{question}
+  Montrer en quoi la définition ci-dessus ne définit pas une tribu sur
+  $\Omega$.
+\end{question}
+Pour résoudre ce problème on considère la plus petite tribu contenant
+les \textit{carré} d'évènements précédents : la tribu engendrées par
+ces carrés\footnote{Penser aux sous-espaces vectoriels engendrés par
+  une partie.}. Cette tribu peut-être construite en considérant les
+complémentaires et union dénombrables des \textit{carrés} puis de même
+avec les objets obtenus à cette étape et ainsi de suite\footnote{Pour
+  une discussion éclairante sur ce point voir
+  \href{https://fr.wikipedia.org/wiki/Tribu_engendrée}{\texttt{Wikipedia
+      -- Tribu engendrée}}.}.  La magie de cette construction réside
+dans le fait qu'il suffit, pour définir une probabilité sur la tribu
+engendrée, de la définir sur les éléments qui l'engendre\footnote{Tout
+  comme le fait que pour définir une application linéaire il suffit de
+  connaître les valeurs qu'elle prend sur une base.}. La vérification
+de ce fait est technique et ne fait pas partie du scope de ce cours,
+la conclusion seule nous importe ici. On peut désormais retrouver les
+deux VAs $X_1$ et $X_2$ sur $\Omega$ par composition à gauche avec les
+projections respectivement sur la première et seconde coordonnée.
+
+Il s'agit maintenant de définir une probabilité sur $\Omega$. On
+suppose pour cette période que les VAs $X_1$ et $X_2$ sont
+discrètes. D'après la discussion précédente il suffit de définir
+celle-ci sur les \textit{carré}, les axiomes d'une probabilité
+permettent d'étendre cette définition à tout type d'évènements du
+produit. Dans notre cas, on est uniquement concernés par la sous-tribu
+engendrée par les carrés du type $(X_1 = x_1) \times (X_2 \times x_2)$
+pour des éléments $(x_1, x_2) \in \R^2$.
+\begin{question}
+  Supposons qu'on définisse la probabilité $\PP$ sur $\Omega$ par
+  \[
+    \forall (x_1, x_2) \in \R^2, \qquad \PP(X_1= x_!, X_2 = x_2) =
+    \PP_1(X_1 = x_1)\PP(X_2 = x_2).
+  \]
+  À quoi correspond un tel choix?
+\end{question}
+La description précédente ne prend pas en compte le possible
+conditionnement de $X_2$ par rapport à $X_1$, on peut cependant
+modéliser une telle situation, et c'est rassurant. Supposons donné
+pour tout $x_1 \in \R$ un germe de probabilité $\PP_2^{x_1}$
+correspondant à la réalisation d'une issue de $X_2$ conditionnée à la
+réalisation de $x_1$ pour $X_1$.
+\begin{prop}
+  L'expression définie pour tout $(x_1, x_2) \in \R^2$, par
+  $\PP(X_1 = x_1, X_2 = x_2) = \PP_1(X_1 = x_1)\PP_2^{x_1}(X_2 = x_2)$
+  définit une probabilité sur $\Omega$ qui conditionne $X_2$ par
+  $X_1$.
+\end{prop}
+Cette propriété nous apporte les garanties nécessaires pour comparer
+les réalisations simultanées de deux variables ; la généralisation au
+cas d'un nombre fini de VAs n'est qu'une difficulté technique. On
+renvoie à \cite[pages 65-67 \& 93]{ouvrard1998probabilites}.
+
+\section{VAs discrètes usuelles}
+\label{sec:VAsdiscretesusuelles}
+
+On liste dans la suite les VAs usuelles, d'utilisations constantes
+dans les cas d'études pratiques et de modélisation.
+
+\subsection{Loi uniforme}
+\label{sec:loiuniforme}
+
+Une variable aléatoire $X : \Omega \to \R$ ayant une image finie
+$\{x_1, \ldots, x_n\}$ suit une \emph{loi uniforme} si
+\[
+  \forall i \in \{1, \ldots, n\}, \qquad \PP(X = x_i) = \frac{1}{n}.
+\]
+On écrit dans ce cas que $\PP_X \leadsto \mc{U}(n)$.
+\begin{question}
+  Vérifier que cette description correspond à la notion de
+  l'équiprobabilité de réalisation de chacune des issues de $X$.
+\end{question}
+
+\subsection{Loi de \textsc{Bernoulli}}
+\label{sec:loibernoulli}
+
+Une variable aléatoire $X : \Omega \to \R$ d'image
+$\{0 , 1\}$ est dite \emph{loi de \textsc{Bernoulli} de paramètre
+  $\bs{p}$} si
+\[
+  \PP(X = 1) = p.
+\]
+\begin{question}
+  En quoi est-ce que la donnée de la valeur de $\PP_X$ sur $1$ est
+  suffisante pour décrire $\PP_X$?
+\end{question}
+
+\subsubsection{\emph{Score} d'un classificateur}
+\label{sec:classificateurAlea}
+
+On chercher dans cette section à quantifier la \textit{qualité} de
+modèles de ML qu'on appelle les classificateur. Un classificateur est
+un modèle apparaît dans la situation où la caractéristique qu'on
+cherche à prédire est discrète ; par exemple des types de plantes, des
+couleurs de cheveux, des appréciations de goûts etc. C'est une
+fonction qui étant donné un certain nombre de caractéristique en
+entrée renvoie une valeurs discrète, souvent codées entre $0$ et le
+nombre de classes à prédire moins un.
+
+Dans la formalisation qu'on propose ici on considère que les
+caractéristique en entrée constitue un espace d'états $\Omega$. On
+considère de plus que celui-ci vient avec une fonction $\lambda$ qu'on
+désigne par \textit{label} et qui nous indique la caractéristique
+qu'on cherche à prédire. On a supposé que le dataset en entrée
+contient cette information. Dans ce contexte un classificateur est une
+variable aléatoire $X : \Omega \to F$ où $F$ est l'espace des labels
+qu'on cherche à attribuer à nos entrées. L'espace $\Omega$ est supposé
+fini probabilisé muni d'une probabilité $\mbb{P}$. C'est cette
+probabilité qui fait office de \textit{proportion}.
+
+On suppose que $X$ est donnée et on souhaite étudier trois quantités
+qui sont liées à l'évaluation de la qualité d'un classificateur.
+
+\paragraph{Cas binaire.} On se limite en un premier temps au cas d'un
+classificateur binaire, c'est-à-dire que $F = \{0, 1\}$.
+\begin{question}
+  On appelle \emph{précision totale} d'un classificateur binaire $X$
+  la proportion des individus bien classés, c'est-à-dire ceux où les
+  réponses de $X$ et $\lambda$ coïncident.
+  \begin{enumerate}
+  \item Exprimer la précision totale de $X$ en s'aidant de la variable
+    aléatoire $X - \lambda$.
+  \item Déterminer la loi de $X-\lambda$ et interpréter ses deux
+    autres valeurs.
+  \end{enumerate}
+\end{question}
+Dans le cas d'un classificateur binaire deux autres quantités
+apparaissent relativement naturellement à l'évaluation :
+\begin{itemize}
+\item la \emph{précision}: proportion des vrais positifs par
+  rapport à l'ensemble des bonnes classifications.
+\item le \emph{rappel}: proportion des vrais positifs par rapport
+  à l'ensemble des positifs (donnés par $\lambda$).
+\end{itemize}
+\begin{question}
+  \begin{enumerate}
+  \item Exprimer précision et rappel de $X$.
+  \item Étudier l'interconnexion entre précision et rappel ;
+    qu'arrive-t-il à l'une si l'autre augmente?
+  \end{enumerate}
+\end{question}
+Dans les problématiques de classification on est toujours attentifs au
+fait d'être confrontés à des modèles dont la dépendance au label
+$\lambda$ est très faible. C'est pour cette raison qu'on va souvent
+chercher à évaluer le \emph{score} d'un classificateur $X$ tels que
+$X$ et $\lambda$ définissent des variables aléatoires indépendantes.
+\begin{question}
+  \begin{enumerate}
+  \item Simplifier les expressions de la précision totale, précision
+    et rappel dans le cas où $X$ et $\lambda$ sont indépendants.
+  \item On suppose que $X$ et $\lambda$ sont indépendants et suivent
+    des loi de \textsc{Bernoulli} respectivement de paramètres $p$ et
+    $q$. Exprimer les différents scores de $X$ dans ce cas.
+  \item Quels résultats numériques obtenez vous pour chacun des scores
+    quand $p=q=0.9$? Qu'en déduisez vous?
+  \end{enumerate}
+\end{question}
+
+\subsection{Loi géométrique}
+\label{sec:loigéométrique}
+
+On considère l'expérience aléatoire qui consiste à jeter une pièce
+truquée autant de fois qu'on veut. On suppose qu'on a $p \in ]0, 1[$
+chances d'avoir Pile. On note $X : \Omega \to \R$ la variable
+aléatoire qui consiste à obtenir le premier Face.
+\begin{question}
+  Décrire la loi de la VA $X$. Quelle hypothèse implicite on utilise
+  dans cette description?
+\end{question}
+La VA $X$ est dite suivre une \emph{loi géométrique de paramètre
+  $\bs{p}$}.
+\begin{question}
+  Reprenez la question \zref{q:brendan} et supposez que Brendan remets
+  à chaque essai le briquet testé dans sa poche. Décrire la loi de la
+  VA Brendan a réussi à allumer sa cigarette.
+\end{question}
+
+\subsection{Loi binômiale}
+\label{sec:loibinomiale}
+
+Une variable aléatoire $X : \Omega \to \R$ d'image dans
+$\{0, \ldots, n\}$ suit une loi binômiale de paramètres $n$ et $p$,
+qu'on écrit $\PP_X \leadsto \mc{B}(n, p)$, si elle est de la forme
+\[
+  X = \sum_{i = 1}^n B_i
+\]
+pour des variables de \textsc{Bernoulli} $B_i$ de paramètre $p$, indépendantes
+dans leur ensembles.
+\begin{question}
+  Expliciter une formule pour la loi de $X$ suivant une
+  $\mc{B}(n, p)$.
+\end{question}
+\begin{question}
+  Décrire des expériences aléatoires modélisées par la loi précédente.
+\end{question}
+
+\subsection{Loi hypergéométrique}
+\label{sec:loihypergeometrique}
+
+On considère l'expérience aléatoire qui consiste à tirer au hasard $k$
+boules dans une urnes contenant $n_b$ boules blanches et $n_r$ boules
+rouges.
+\begin{question}
+  Décrire la loi de la VA $X$ qui compte le nombre de boules rouges.
+\end{question}
+\begin{question}
+  Revenez à la seconde partie de la question \zref{q:repartitionTD}.
+\end{question}
+
+\subsection{Loi de \textsc{Poisson}}
+\label{sec:loidepoisson}
+
+Vous pouvez retrouver la description suivante dans
+\cite{aleaprobasIX}. On considère une suite $(p_n)$ avec
+$np_n \to \lambda \in \R_+^*$. On s'intéresse à la suite de VAs
+$X_n \leadsto \mc{B}(n, p_n)$. C'est une suite de VAs suivant des lois
+binômiales dont le paramètre de réalisation est de plus en petit. Ce
+processus est une tentative de modélisation d'évènements rares. Pour
+tout $ k \in \N$
+\[
+  \PP(X_n = k) = \left\{
+    \begin{matrix}
+      \binom{k}{n}p_n^k(1-p_n)^{n-k} & \textrm{si $k \leq n$} \\
+      0 & \textrm{si $k \geq n+1$}
+    \end{matrix}\right.
+\]
+\begin{question}
+  \begin{enumerate}
+  \item Montrer que
+    $\lim_{n \to +\infty} \PP(X_n = k) =
+    e^{-\lambda}\frac{\lambda^k}{k!}$.
+  \item Vérifier que la donnée pour tout $k \in \N$, par
+    $g(k) = e^{-\lambda}\frac{\lambda^k}{k!}$ définit une loi de
+    probabilité sur $\N$.
+  \end{enumerate}
+\end{question}
+Une VA $X$ qui suit la loi décrite précédemment est dite de
+\textsc{Poisson} de paramètre $\lambda$, on écrite
+$X \leadsto \mc{P}(\lambda)$.
+\begin{question}
+  Vous retrouverez cet exemple dans \cite[page
+  94]{ouvrard1998probabilites}. On se place à un embranchement routier
+  ; le nombre de véhicules arrivant pendant un intervalle d'une heure
+  est une VA $X$, suivant une loi de \textsc{Poisson} de paramètre
+  $\lambda$. Les véhicules ne peuvent prendre qu'une des deux
+  directions $A$ ou $B$, et la VA $Y$ représente le nombre de
+  véhicules empruntant la direction $A$ pendant cet intervalle de
+  temps. Chaque véhicule prend la direction $A$ avec probabilité $p$,
+  et les choix sont faits de manière indépendante. C'est pour cette
+  raison qu'on suppose que si $n$ véhicules arrivent à l'embranchement
+  pendant une heure donnée, la loi (conditionnelle) de
+  $Y \leadsto \mc{B}(n, p)$..
+
+  La probabilité conditionnelle $\PP^{(Y = k)}(X = n)$ est la
+  probabilité que $n$ véhicules soient arrivés à l'embranchement
+  sachant que $k$ véhicules ont emprunté la direction $A$. Calculer
+  cette probabilité.
+\end{question}
+
+\section{Moments d'une VA discrète}
+\label{sec:momentsVAdiscrète}
+
+L'étude du comportement aléatoire d'une VA discrète s'étudie souvent
+par le biais de mesures de \emph{centrage} et de
+\emph{dispersion}. Dans le jargon quotidien on parlera par exemple de
+\textit{moyenne} ou \textit{médiane} et de \textit{variance} ou
+\textit{écart-type}. Ces deux mesures, qu'on pense souvent en termes
+statistiques se calcule par le biais des \emph{moments} d'ordre $1$ et
+$2$ des VAs qui modélisent les phénomènes à l'étude.
+
+\subsection{Espérance d'une VA discrète}
+\label{sec:esperance}
+
+L'équivalent de la notion de \emph{moyenne} en théorie des
+probabilités est celui d'espérance.
+\begin{defn}[Espérance d'une VA discrète]
+  Soit $X : \Omega \to \R$ une VA discrète. Si
+  $\sum_{x\in \R} |x|\PP(X = x) < + \infty$ on appelle
+  \emph{espérance} de la VA $X$ la quantité
+  \[
+    \EE(X) = \sum_{x \in X} x\PP(X = x).
+  \]
+\end{defn}
+\begin{question}
+  Calculer l'espérance d'une VA discrète suivant une loi uniforme sur
+  $\{0, \ldots, n\}$.
+\end{question}
+\begin{question}
+  Quelle est l'espérance d'une loi de \textsc{Bernoulli} de paramètre $p$?
+\end{question}
+\begin{question}
+  \begin{enumerate}
+  \item
+    Soit $X$, $Y$ deux VA discrètes sur $(\Omega, \mc{A}, \PP)$. Étant
+    donnée $\lambda \in \R$, montrer que
+    \begin{equation}
+      \label{eq:linearitesperance}
+      \tag{Linéarité de l'espérance}
+      \EE(\lambda X + Y) = \lambda\EE(X) + \EE(Y).
+    \end{equation}
+  \item En déduire l'espérance d'une VA suivant une loi binômiale de
+    paramètres $n$ et $p$.
+  \end{enumerate}
+\end{question}
+Il arrive souvent qu'on s'intéresse à une fonction d'une VA
+$X : \Omega \to \Pi$, c'est-à-dire à la fonction composée
+$f(X) = f\circ X$ pour $f : \Pi \to \Delta$. Le théorème de transfert
+nous indique qu'on peut étudier la loi de $f(X)$ en travaillant
+toujours sur $\Pi$. On suppose que $X$ est une VA discrète ; il en va
+de même de $f(X)$.
+\begin{thm}[Théorème de transfert]
+  Si la somme $\sum_{x \in \Pi}|f(x)|\PP(X = x)$ est finie alors
+  \[
+    \EE\big(f(X)\big) = \sum_{x \in \Pi}f(x)\PP(X = x).
+  \]
+\end{thm}
+\begin{question}
+  Calculer les espérances des lois usuelles restantes dans la liste en
+  amont.
+\end{question}
+
+\subsection{Variance d'une VA discrète}
+\label{sec:varianceVAdiscrete}
+
+La variance est une mesure de dispersion, autrement dit de variabilité
+autour de l'espérance d'une VA discrète.
+\begin{defn}
+  Soit $X : \Omega \to \R$ une VA discrète. Si $\EE(X^2) < + \infty$
+  on appelle \emph{variance} de la VA $X$ la quantité
+  \[
+    \VV(X) = \EE\big( (X- \EE(X))^2\big)
+  \]
+\end{defn}
+\begin{question}
+  Soit $X$ une VA discrète qui admet une variance. Montrer que
+  \[
+    \VV(X) = \EE(X^2) - \EE(X)^2.
+  \]
+\end{question}
+\begin{question}
+  Quel est l'équivalent de la relation (\ref{eq:linearitesperance})
+  dans le cas de la variance d'une loi aléatoire discrète $X$ sur
+  $(\Omega, \mc{A}, \PP)$.
+\end{question}
+\begin{question}
+  Calculer les variances des VAs discrètes suivant les lois usuelles
+  listées en amont. Identifier parmi celles-ci celles qui vous posent
+  problème.
+\end{question}
+
+\subsection{Moments d'ordres supérieures d'une VA discrète}
+\label{sec:momentsups}
+
+L'espérance et la variance sont des mesures correspondant au moment
+d'ordre $1$ dans le premier cas et à partir de ceux d'ordres $1$ et
+$2$ dans le second.
+\begin{defn}
+  Soient $X : \Omega \to \R$ une VA discrète et $p \geq 1$. Si
+  $\EE(X^p) < +\infty$ on appelle moment d'ordre $p$ de $X$ la
+  quantité
+  \[
+    \mu_p(X) = \sum_{i \in \N}\omega_i^p\PP(X = \omega_i).
+  \]
+\end{defn}
+Avec les notations précédentes on peut écrire la variance de $X$ sous
+la forme
+\[
+  \VV(X) = \mu_2(X) - \mu_1(X)^2.
+\]
+La manipulation des moments d'ordre supérieurs de variables discrètes
+n'est pas aisée avec les outils qu'on a en main. Il nous faudrait
+introduire dans ce but les séries génératrices de VAs
+discrètes. Notion qui, malgré son intérêt\footnote{Et son
+  esthétisme!}, nous pousserait loin du scope de ce cours. Il est
+cependant important d'en connaître l'existence et la définition ; ces
+moments sont utilisés dans les techniques de représentations de
+données.
+
+\section{Indépendance et conditionnement}
+\label{sec:independanceetconditionnement}
+
+\section{Covariance et corrélation}
+\label{sec:convarianceetcorrelation}
+
+
+\bibliographystyle{alpha}
+\bibliography{PRSTIA}
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
