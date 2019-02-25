@@ -89,6 +89,32 @@ On parle dans ce contexte du \emph{germe de $\bs{X}$ en $x$}.
   germes en tout point.
 \end{question}
 
+\section{Indépendance et conditionnement}
+\label{sec:independanceetconditionnement}
+
+Les notions d'indépendance et de conditionnement de VAs se décrivent
+relativement simplement dans le cas des VAs discrètes.
+\begin{question}
+  Justifier le fait que deux VAs discrètes $X_1$ et $X_2$ sur
+  $(\Omega, \mc{A}, \PP)$ sont indépendantes si et seulement si pour
+  tout couple d'issues $(x_1, x_2) \in X_1(\Omega)\times X_2(\Omega)$
+  on a
+  \[
+    \PP(X_1 = x_1, X_2 = x_2) = \PP(X_1 = x_1)\PP(X_2 = x_2).
+  \]
+\end{question}
+On reprend les notations ci-dessus. On définit la \emph{loi de
+  $\bs{X_2}$ conditionnelle à l'évènement $\bs{(X_1 = x_1)}$} par le
+germe
+\[
+  \PP_{X_2}^{(X_1 = x_1)} := \PP^{(X_1 = x_1)}(X_2 = x_2) = \PP(X_2 =
+  x_2 | X_1 = x_1).
+\]
+\begin{question}
+  Montrer que la loi du couple $(X_1, X_2)$ est déterminée par
+  $\PP_{X_1}$ et $\PP_{X_2}^{(X_1 = x_1)}$.
+\end{question}
+
 \section{Comparer deux VAs}
 \label{sec:comparerdeuxVAs}
 
@@ -142,7 +168,7 @@ pour des éléments $(x_1, x_2) \in \R^2$.
 \begin{question}
   Supposons qu'on définisse la probabilité $\PP$ sur $\Omega$ par
   \[
-    \forall (x_1, x_2) \in \R^2, \qquad \PP(X_1= x_!, X_2 = x_2) =
+    \forall (x_1, x_2) \in \R^2, \qquad \PP(X_1= x_1, X_2 = x_2) =
     \PP_1(X_1 = x_1)\PP(X_2 = x_2).
   \]
   À quoi correspond un tel choix?
@@ -415,6 +441,16 @@ probabilités est celui d'espérance.
     paramètres $n$ et $p$.
   \end{enumerate}
 \end{question}
+\begin{question}
+  Vérifier les propriétés suivantes de l'espérance d'une VA
+  $X : \Omega \to \R$.
+  \begin{enumerate}
+  \item Si $c$ est l'unique valeur que prend $X$ alors $\EE(X) = c$.
+  \item Si $X$ est bornée $X$ admet une espérance.
+  \item Si $X \geq 0$ alors $\EE(X) \geq 0$.
+  \item $|\EE(X)| \leq \EE(|X|)$.
+  \end{enumerate}
+\end{question}
 Il arrive souvent qu'on s'intéresse à une fonction d'une VA
 $X : \Omega \to \Pi$, c'est-à-dire à la fonction composée
 $f(X) = f\circ X$ pour $f : \Pi \to \Delta$. Le théorème de transfert
@@ -444,6 +480,11 @@ autour de l'espérance d'une VA discrète.
     \VV(X) = \EE\big( (X- \EE(X))^2\big)
   \]
 \end{defn}
+On appelle \emph{écrat-type} d'une VA $X$ admettant une variance le
+scalaire
+\[
+  \sigma_X = \sqrt{\VV(X)}
+\]
 \begin{question}
   Soit $X$ une VA discrète qui admet une variance. Montrer que
   \[
@@ -460,6 +501,20 @@ autour de l'espérance d'une VA discrète.
   listées en amont. Identifier parmi celles-ci celles qui vous posent
   problème.
 \end{question}
+Centrer et réduire ses données est un \textit{pre-processing} standard
+pour différents types d'algorithmes de ML et pour différentes
+raisons. L'objectif peut par exemple être d'optimiser une descente de
+gradient ou d'étudier la corrélation de \textit{features} différentes.
+\begin{defn}
+  La VA \emph{centrée réduite} associée à une VA $X : \Omega \to \R$
+  admettant une espérance et une variance est la VA
+  \[
+    \overline{X} = \frac{X - \EE(X)}{\sigma_X}.
+  \]
+\end{defn}
+\begin{question}
+  Vérifier que $\EE(\overline{X}) = 0$ et $\VV(\overline{X}) = 1$
+\end{question}
 
 \subsection{Moments d'ordres supérieures d'une VA discrète}
 \label{sec:momentsups}
@@ -469,10 +524,10 @@ d'ordre $1$ dans le premier cas et à partir de ceux d'ordres $1$ et
 $2$ dans le second.
 \begin{defn}
   Soient $X : \Omega \to \R$ une VA discrète et $p \geq 1$. Si
-  $\EE(X^p) < +\infty$ on appelle moment d'ordre $p$ de $X$ la
+  $\EE(|X|^p) < +\infty$ on appelle moment d'ordre $p$ de $X$ la
   quantité
   \[
-    \mu_p(X) = \sum_{i \in \N}\omega_i^p\PP(X = \omega_i).
+    \mu_p(X) = \EE(X^p).
   \]
 \end{defn}
 Avec les notations précédentes on peut écrire la variance de $X$ sous
@@ -488,9 +543,6 @@ discrètes. Notion qui, malgré son intérêt\footnote{Et son
 cependant important d'en connaître l'existence et la définition ; ces
 moments sont utilisés dans les techniques de représentations de
 données.
-
-\section{Indépendance et conditionnement}
-\label{sec:independanceetconditionnement}
 
 \section{Covariance et corrélation}
 \label{sec:convarianceetcorrelation}
