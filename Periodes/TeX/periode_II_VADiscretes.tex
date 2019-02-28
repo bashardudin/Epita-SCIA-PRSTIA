@@ -227,31 +227,29 @@ $\{0 , 1\}$ est dite \emph{loi de \textsc{Bernoulli} de paramètre
 \subsubsection{\emph{Score} d'un classificateur}
 \label{sec:classificateurAlea}
 
-On chercher dans cette section à quantifier la \textit{qualité} de
-modèles de ML qu'on appelle les classificateur. Un classificateur est
-un modèle apparaît dans la situation où la caractéristique qu'on
-cherche à prédire est discrète ; par exemple des types de plantes, des
-couleurs de cheveux, des appréciations de goûts etc. C'est une
-fonction qui étant donné un certain nombre de caractéristique en
-entrée renvoie une valeurs discrète, souvent codées entre $0$ et le
-nombre de classes à prédire moins un.
+On chercher dans cette section à quantifier la \textit{qualité} d'un
+classificateur binaire. Les classifcateurs sont des modèles de ML
+utilisés lorsque l'on souhaite prédire une caractéristique discrète ;
+par exemple des types de plantes, des couleurs de cheveux, des
+appréciations de goûts etc. à partir d'observations en entrée. Un
+classificateur binaire n'a que deux valeurs de sorties qui correspond
+à l'existence ou non d'une caractéristique que l'on cherche à observer
+; avoir une maladie ou non, réussir un examen ou non, etc.
 
 Dans la formalisation qu'on propose ici on considère que les
-caractéristique en entrée constitue un espace d'états $\Omega$. On
+observations en entrée constituent un espace d'états $\Omega$. On
 considère de plus que celui-ci vient avec une fonction $\lambda$ qu'on
-désigne par \textit{label} et qui nous indique la caractéristique
-qu'on cherche à prédire. On a supposé que le dataset en entrée
-contient cette information. Dans ce contexte un classificateur est une
-variable aléatoire $X : \Omega \to F$ où $F$ est l'espace des labels
-qu'on cherche à attribuer à nos entrées. L'espace $\Omega$ est supposé
-fini probabilisé muni d'une probabilité $\mbb{P}$. C'est cette
-probabilité qui fait office de \textit{proportion}.
-
-On suppose que $X$ est donnée et on souhaite étudier trois quantités
-qui sont liées à l'évaluation de la qualité d'un classificateur.
-
-\paragraph{Cas binaire.} On se limite en un premier temps au cas d'un
-classificateur binaire, c'est-à-dire que $F = \{0, 1\}$.
+désigne par \textit{label} qui code la caractéristique qu'on cherche à
+prédire. Autrement dit on suppose travailler avec un dataset en entrée
+qui contient cette information ; on est dans un cadre d'apprentissage
+supervisé. Dans ce contexte un classificateur est une variable
+aléatoire $X : \Omega \to F$ où $F$ est l'espace des labels qu'on
+cherche à attribuer à nos entrées, c'est-à-dire $F = \{0, 1\}
+$. L'espace $\Omega$ est supposé fini probabilisé muni d'une
+probabilité $\PP$. C'est cette probabilité qui fait office de
+\textit{proportion}. On suppose que $X$ est donnée et on souhaite
+étudier trois quantités qui sont liées à l'évaluation de la qualité
+d'un classificateur.
 \begin{question}
   On appelle \emph{précision totale} d'un classificateur binaire $X$
   la proportion des individus bien classés, c'est-à-dire ceux où les
@@ -259,7 +257,7 @@ classificateur binaire, c'est-à-dire que $F = \{0, 1\}$.
   \begin{enumerate}
   \item Exprimer la précision totale de $X$ en s'aidant de la variable
     aléatoire $X - \lambda$.
-  \item Déterminer la loi de $X-\lambda$ et interpréter ses deux
+  \item Déterminer la loi de $X - \lambda$ et interpréter ses deux
     autres valeurs.
   \end{enumerate}
 \end{question}
