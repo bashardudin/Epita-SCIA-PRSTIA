@@ -1,3 +1,4 @@
+
 \documentclass[11pt, a4paper]{article}
 
 \usepackage[french]{babel}
@@ -545,6 +546,96 @@ données.
 \section{Covariance et corrélation}
 \label{sec:convarianceetcorrelation}
 
+La covariance de deux VAs est un concept qui cherche à quantifier les
+variabilités simultanées de ces deux VAs. Elle est liée à la notion
+d'indépendance de deux VAs par le fait que deux VAs indépendantes ont
+une covariance nulle, la réciproque est \textbf{fausse}! Deux VAs
+ayant une covariance nulle (dites non corrélées) n'ont pas
+nécessairement une covariance nulle.
+\begin{defn}
+  Soient $X$ et $Y$ deux VAs ayant des moments d'ordre $2$. On appelle
+  \emph{covariance} de $X$ et $Y$ la quantité
+  \[
+    \cov(X, Y) = \EE\Big(\big(X - \EE(X)\big)\big((Y - \EE(Y)\big)\Big).
+  \]
+\end{defn}
+\begin{question}
+  En quoi est-ce que l'existence de moments d'ordre $2$ de $X$ et $Y$
+  permet de justifier l'existence de l'espérance de
+  $\big(X - \EE(X)\big)\big(Y - \EE(Y)\big)$?\footnote{À chercher du
+    côté d'une certaine inégalité de \textsc{Schwarz}.}
+\end{question}
+\begin{question}
+  Soient $X$ et $Y$ deux variables aléatoires ayant des moments
+  d'ordre $2$. Justifier les relations:
+  \begin{enumerate}
+  \item $\cov(X, Y) = \EE(XY) - \EE(X)\EE(Y)$ ;
+  \item $\VV(X + Y) = \VV(X) + 2\cov(X, Y) + \VV(Y)$.
+  \end{enumerate}
+  Déduire de la première question\footnote{Retour sur un travail déjà
+    effectué en cours.} que si $X$ et $Y$ sont indépendantes alors
+  leur covariance est nulle.
+\end{question}
+\begin{rem}
+  Le fait que la covariance de deux VAs aient une covariance nulle
+  n'implique pas l'indépendance de celle-ci. L'exercice
+  (\ref{q:convnullenoninds}) montre comment construire une famille de
+  contre-exemples.
+\end{rem}
+\begin{question}
+  \label{q:convnullenoninds}
+  On considère deux VAs indépendantes $X$ et $Y$ ayant des moments
+  d'ordre $2$. On s'intéresse aux VAs
+  \[
+    \left\{
+      \begin{matrix}
+        U & = aX + bY \\
+        V & = cX + dY
+      \end{matrix}
+    \right.
+  \]
+  pour $a$, $b$, $c$ et $d$ des paramètres donnés. Trouver des
+  contre-exemples à la proposition : \textit{deux VAs aléatoires ayant
+    une covariance nulle sont indépendantes}, sous la forme $U$, $V$
+  précédente.
+\end{question}
+La covariance mesure en particulier le potentiel qu'on a à exprimer
+une VA en fonction d'une autre linéairement. C'est une manière de
+contextualiser la notion de covariance. Ce questionnement, exprimer
+linéairement une VA en fonction d'une autre, rentre dans le cadre
+générique de \textit{régression linéaire}.
+
+La \emph{régression linéaire} \textit{classique} est décrite par le
+problème d'optimisation
+\[
+  \min_{(a, b) \in \R^2} \EE(Y - aX - b)^2.
+\]
+La fonction objectif ci-dessus peut-être réécrite sous la forme
+\begin{equation}
+  \label{eq:reglineaire1}
+  \EE(Y - aX - b) = \EE(\overline{Y} - a\overline{X})^2 + \big(\EE(Y)
+  - a \EE(X) - b\big)^2.
+\end{equation}
+\begin{question}
+  Quelle est la valeur minimale du membre de droite de l'égalité
+  (\ref{eq:reglineaire1}) à $a$ fixé. En déduire un point optimal de
+  notre problème de départ. Identifier le \emph{coefficient de
+    corrélation}\footnote{Commencer par en trouver une définition
+    quelque part ..}  entre deux VAs ayant des moments d'ordre $2$.
+\end{question}
+\begin{question}
+  On note $\rho_{X, Y}$ le coefficient de corrélation entre les VAs
+  $X$ et $Y$. Montrer que
+  \begin{enumerate}
+  \item $|\rho_{X, Y}| \leq 1$\footnote{Un peu d'inégalité de
+      \textsc{Schwarz} cachée ici.} ;
+  \item $\rho_{X, Y} = \mp 1$ si et seulement si il existe $a$, $b$,
+    $c$ des réels non nuls tels que
+    \[
+      \PP(aX + bY + c = 0) = 1.
+    \]
+  \end{enumerate}
+\end{question}
 
 \bibliographystyle{alpha}
 \bibliography{PRSTIA}
